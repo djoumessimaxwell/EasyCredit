@@ -73,8 +73,7 @@ class VolController extends Controller
      */
     public function edit(id $id)
     {
-        $vol = Vol::find($id);
-        return view('', compact('vol'));
+        //
     }
 
     /**
@@ -87,15 +86,13 @@ class VolController extends Controller
     public function update(Request $request, $id)
     {
         $vol = Vol::find($id);
-        if($vol) {
-            $vol->Nom = $request->nom;
-            $vol->DateDépart = $request->dateD;
-            $vol->HeureDépart = $request->heureD;
-            $vol->DateArrivée = $request->dateA;
-            $vol->HeureArrivée = $request->heureA;
-            $vol->save();
-        }
-        return redirect('/'.$id);
+        
+        $vol->Nom = $request->nom;
+        $vol->DateDépart = $request->dateD;
+        $vol->HeureDépart = $request->heureD;
+        $vol->DateArrivée = $request->dateA;
+        $vol->HeureArrivée = $request->heureA;
+        $vol->save();
     }
 
     /**
@@ -107,7 +104,7 @@ class VolController extends Controller
     public function destroy($id)
     {
         $vol = Vol::find($id);
-        
+
         if($vol) {
             $reserve = $vol->reservations()->get();
             $reserve->each->delete();

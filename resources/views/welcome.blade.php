@@ -33,6 +33,7 @@
 
                 <form id="volForm" method="POST" action="vol/create">
                     {{ csrf_field() }}
+                    {{ method_field('PUT') }}
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Nom du vol : </label>
@@ -90,7 +91,7 @@
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                             <button type="submit" class="btn btn-primary" id="save-vol">Créer</button>
-                            <button type="submit" hidden class="btn btn-primary" id="update-vol">Modifier</button>
+                            <button type="submit" class="btn btn-primary" id="update-vol">Modifier</button>
                         </div>
                     </div>
                 </form>
@@ -154,7 +155,7 @@
                             </td>
 
                             <td style="display: inline-flex;">
-                                <button id="edit-vol" data-id="{{$Vol->id}}" data-url="/vol/update/" title="modifier">
+                                <button id="edit-vol" data-id="{{$Vol->id}}" title="modifier">
                                     <span><i class="fa fa-pencil" style="color:dodgerblue;"></i></span>
                                 </button>
 
@@ -179,6 +180,7 @@
 
                 <form id="reserveForm" method="POST" action="/reservation/create">
                     {{ csrf_field() }}
+                    {{ method_field('PUT') }}
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Numéro de reservation : </label>
@@ -212,7 +214,7 @@
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                             <button type="submit" class="btn btn-primary" id="save-reserve">Créer</button>
-                            <button type="submit" hidden  class="btn btn-primary" id="update-reserve">Modifier</button>
+                            <button type="submit" class="btn btn-primary" id="update-reserve">Modifier</button>
                         </div>
                     </div>
                 </form>
@@ -256,7 +258,7 @@
                             </td>
 
                             <td style="display: inline-flex;">
-                                <button id="edit-reserve" data-id="{{$Reserve->id}}" data-url="/reservation/update/" title="modifier">
+                                <button id="edit-reserve" data-id="{{$Reserve->id}}" title="modifier">
                                     <span><i class="fa fa-pencil" style="color:dodgerblue;"></i> </span>
                                 </button>
 

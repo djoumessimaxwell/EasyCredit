@@ -67,9 +67,7 @@ class ReservationController extends Controller
      */
     public function edit(id $id)
     {
-        $reserve = Reservation::find($id);
-        $vol = Vol::all();
-        return view('', compact( 'reserve, vol'));
+        //
     }
 
     /**
@@ -82,13 +80,11 @@ class ReservationController extends Controller
     public function update(Request $request, $id)
     {
         $reserve = Reservation::find($id);
-        if($reserve) {
-            $reserve->Numero = $request->numero;
-            $reserve->DateReservation = $request->date;
-            $reserve->vol_id = $request->vol;
-            $reserve->save();
-        }
-        return redirect('/');
+        
+        $reserve->Numero = $request->numero;
+        $reserve->DateReservation = $request->date;
+        $reserve->vol_id = $request->vol;
+        $reserve->save();
     }
 
     /**
