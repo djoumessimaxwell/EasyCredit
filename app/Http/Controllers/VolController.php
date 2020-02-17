@@ -62,7 +62,7 @@ class VolController extends Controller
     {
         $vol = Vol::all();
         $reserve = Reservation::all();
-        return view('welcome', compact( 'vol', 'reserve'));
+        return view('dashboard', compact( 'vol', 'reserve'));
     }
 
     /**
