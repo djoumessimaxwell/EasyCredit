@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Vol;
-use App\Reservation;
+use App\Transaction;
 use Illuminate\Http\Request;
 
-class VolController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class VolController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -36,18 +35,14 @@ class VolController extends Controller
      */
     public function store(Request $request)
     {
-        $vol = new Vol;
+        $reserve = new Reservation;
 
-        $vol->Nom = request('nom');
-        $vol->AeroportDépart = request('AeroportD');
-        $vol->AeroportArrivée = request('AeroportA');
-        $vol->DateDépart = request('dateD');
-        $vol->HeureDépart = request('heureD');
-        $vol->DateArrivée = request('dateA');
-        $vol->HeureArrivée = request('heureA');
-        $vol->Escale = request('escale');
+        $reserve->Numero = request('numero');
+        $reserve->DateReservation = request('date');
+        $reserve->vol_id = request('vol');
+        $reserve->Passager = request('passager');
 
-        $vol->save();
+        $reserve->save();
 
         return redirect('/');
     }
@@ -55,20 +50,19 @@ class VolController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Vol  $vol
+     * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function showAll(Vol $vol)
+    public function showAll()
     {
-        $vol = Vol::all();
-        $reserve = Reservation::all();
-        return view('dashboard', compact( 'vol', 'reserve'));
+        $trans = Transaction::All();
+        return view('admin/transactions', compact('trans'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Vol  $vol
+     * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function edit(id $id)
@@ -80,36 +74,31 @@ class VolController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vol  $vol
+     * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $vol = Vol::find($id);
+        $reserve = Reservation::find($id);
         
-        $vol->Nom = $request->nom;
-        $vol->DateDépart = $request->dateD;
-        $vol->HeureDépart = $request->heureD;
-        $vol->DateArrivée = $request->dateA;
-        $vol->HeureArrivée = $request->heureA;
-        $vol->save();
+        $reserve->Numero = $request->numero;
+        $reserve->DateReservation = $request->date;
+        $reserve->vol_id = $request->vol;
+        $reserve->save();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Vol  $vol
+     * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $vol = Vol::find($id);
+        $reserve = Reservation::find($id);
 
-        if($vol) {
-            $reserve = $vol->reservations()->get();
-            $reserve->each->delete();
-
-            $vol->delete();
+        if($reserve) {
+            $reserve->delete();
         } 
         return redirect('/');
     }

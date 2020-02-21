@@ -22,8 +22,8 @@
           </a>
         </li>
         <li class="sidebar">
-          <a href="/compte">
-            <i class="fa fa-pie-chart"></i><span>Mon compte</span>
+          <a href="/crédit">
+            <i class="fa fa-pie-chart"></i><span>Demander un crédit</span>
           </a>
         </li>
         <li class="sidebar">
@@ -38,27 +38,27 @@
           </a>
         </li>
 
-        
-          <li class="header">Menu admin</li>
-          <li class="sidebar">
-            <a href="/admin/membres">
-              <i class="fa fa-user"></i> <span>Membres</span>
-            </a>
-          </li>
-          <li class="sidebar">
-            <a href="/admin/transactions">
-              <i class="fa fa-exchange"></i> <span>Transactions</span>
-            </a>
-          </li>
-          <li class="sidebar">
-            <a href="/admin/messages">
-              <i class="fa fa-comments text-aqua"></i> <span>Messages</span>
-              <span class="pull-right-container">
-                <span class="label label-primary pull-right">4</span>
-              </span>
-            </a>
-          </li>
-        
+        @if( Auth::user()->hasRole('Admin')  )
+        <li class="header">Menu admin</li>
+        <li class="sidebar">
+          <a href="/admin/membres">
+            <i class="fa fa-user"></i> <span>Membres</span>
+          </a>
+        </li>
+        <li class="sidebar">
+          <a href="/admin/transactions">
+            <i class="fa fa-exchange"></i> <span>Transactions</span>
+          </a>
+        </li>
+        <li class="sidebar">
+          <a href="/admin/messages">
+            <i class="fa fa-comments text-aqua"></i> <span>Messages</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+        </li>
+        @endif
 
       </ul>
     </section>

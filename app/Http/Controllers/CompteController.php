@@ -46,7 +46,8 @@ class CompteController extends Controller
      */
     public function show(Compte $compte)
     {
-        //
+        $compte = Compte::All();
+        return view('compte', compact('compte'));
     }
 
     /**

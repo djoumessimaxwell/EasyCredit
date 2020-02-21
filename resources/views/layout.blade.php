@@ -46,7 +46,7 @@
         <!-- Date Picker -->
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-datepicker.min.css') }}">
         <!-- Daterange picker -->
-        <link rel="stylesheet" href="{{ URL::asset('css/daterangepicker.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/dataTables.bootstrap.min.css') }}">
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap3-wysihtml5.min.css') }}">
 
@@ -102,7 +102,9 @@
         <script src="{{ URL::asset('js/moment.min.js') }}"></script>
         <script src="{{ URL::asset('js/daterangepicker.js') }}"></script>
         <!-- datepicker -->
-        <script src="{{ URL::asset('js/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ URL::asset('js/dataTables.bootstrap.min.js') }}"></script>
+        @yield('script')
         <!-- Bootstrap WYSIHTML5 -->
         <script src="{{ URL::asset('js/bootstrap3-wysihtml5.all.min.js') }}"></script>
         <!-- Slimscroll -->

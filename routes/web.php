@@ -10,22 +10,28 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware('auth')->group( function() {
+	Route::get('/', 'HomeController@index');
+	Route::get('/crédit', 'CompteController@show');
+	Route::get('/documentation', 'HomeController@showDoc');
+	Route::get('/contact', 'HomeController@contact');
+	Route::get('/profil', 'MembreController@showProfile');
 
-	Route::get('/', 'VolController@showAll');
-	Route::get('/compte', 'VolController@showAll');
-	Route::get('/documentation', 'VolController@showAll');
-	Route::get('/contact', 'VolController@showAll');
-	Route::get('/admin/membres', 'VolController@showAll');
-	Route::get('/admin/transactions', 'VolController@showAll');
-	Route::get('/admin/messages', 'VolController@showAll');
+	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::post('/admin/message/create', ['uses'=>'MessageController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::post('/admin/message/update/{vol}', ['uses'=>'MessageController@update','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::delete('/admin/message/delete/{vol}', ['uses'=>'MessageController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
 
-	Route::post('/vol/create', 'VolController@store');
-	Route::post('/vol/update/{vol}', 'VolController@update');
-	Route::delete('/vol/delete/{vol}', 'VolController@destroy');
+	Route::get('/admin/membres', ['uses'=>'MembreController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::get('/admin/membres/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::post('/admin/membre/create', ['uses'=>'MembreController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::post('/admin/membre/update/{vol}', ['uses'=>'MembreController@update','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::delete('/admin/membre/delete/{vol}', ['uses'=>'MembreController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
 
-	Route::post('/reservation/create', 'ReservationController@store');
-	Route::post('/reservation/update/{reserve}', 'ReservationController@update');
-	Route::delete('/reservation/delete/{reserve}', 'ReservationController@destroy');
+	Route::get('/admin/transactions', ['uses'=>'TransactionController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::post('/admin/transaction/create', ['uses'=>'TransactionController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::post('/admin/transaction/update/{reserve}', ['uses'=>'TransactionController@update','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::delete('/admin/transaction/delete/{reserve}', ['uses'=>'TransactionController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+});
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

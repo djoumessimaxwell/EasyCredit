@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Documentation
+    Crédit
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Documentation
+            Effectuer un crédit
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Accueil</a></li>

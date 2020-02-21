@@ -16,7 +16,7 @@ class CheckRole
     public function handle($request, Closure $next)
     {
         if ($request->user()=== null) {
-            abort(401);
+            return response("Vous n'avez pas accès à cette page",401);
         }
 
         $actions = $request->route()->getAction();
@@ -25,6 +25,6 @@ class CheckRole
         if($request->user()->hasAnyRole($roles) || !$roles) {
             return $next($request);
         }
-        abort(401);
+        return response("Vous n'avez pas accès à cette page",401);
     }
 }

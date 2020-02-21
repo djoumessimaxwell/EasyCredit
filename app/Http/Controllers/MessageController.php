@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Reservation;
-use App\Vol;
+use App\Message;
 use Illuminate\Http\Request;
 
-class ReservationController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,36 +35,28 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $reserve = new Reservation;
-
-        $reserve->Numero = request('numero');
-        $reserve->DateReservation = request('date');
-        $reserve->vol_id = request('vol');
-        $reserve->Passager = request('passager');
-
-        $reserve->save();
-
-        return redirect('/');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Reservation  $reservation
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showAll()
     {
-        //
+        $message = Message::All();
+        return view('admin/messages', compact('message'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Reservation  $reservation
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(id $id)
+    public function edit(Message $message)
     {
         //
     }
@@ -74,32 +65,22 @@ class ReservationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Reservation  $reservation
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Message $message)
     {
-        $reserve = Reservation::find($id);
-        
-        $reserve->Numero = $request->numero;
-        $reserve->DateReservation = $request->date;
-        $reserve->vol_id = $request->vol;
-        $reserve->save();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Reservation  $reservation
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Message $message)
     {
-        $reserve = Reservation::find($id);
-
-        if($reserve) {
-            $reserve->delete();
-        } 
-        return redirect('/');
+        //
     }
 }
