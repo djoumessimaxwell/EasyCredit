@@ -56,10 +56,30 @@
                         <h3 class="box-title">Détails</h3>
                     </div>
                     <div class="box-body">
-                        
-                    </div>
-                    <div class="box-footer clearfix">
-                        
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="ion ion-ios-paperplane-outline"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-number">5,200</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="ion ion-ios-location-outline"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-number">5,200</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box bg-default">
+                            <span class="info-box-icon"><i class="ion ion-ios-telephone-outline"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-number">5,200</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
                     </div>
                 </div>
                 <!-- /.box -->
@@ -69,7 +89,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <!-- quick email widget -->
-                <div class="box box-default">
+                <div class="box box-danger">
                     <div class="box-header">
                         <i class="fa fa-list"></i>
 

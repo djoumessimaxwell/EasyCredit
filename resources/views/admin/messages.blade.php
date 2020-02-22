@@ -28,7 +28,19 @@
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
-                                <tr>
+                                <tr class="bg-info">
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>User email</th>
+                                    <th>Provider</th>
+                                    <th>Date registered</th>
+                                    <th>Last login</th>
+                                    <th>is Online</th>
+                                    <th>Last logout</th>
+                                    <th>Last IP</th>
+                                    <th>City</th>
+                                    <th>Email verified</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 

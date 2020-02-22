@@ -8,7 +8,7 @@ class Transaction extends Model
 {
     protected $fillable = [  'UserID', 'Type','Amount', 'Date'];
 
-    public function reservations() {
-        return $this->hasMany(Reservation::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
