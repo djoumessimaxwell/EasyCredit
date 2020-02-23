@@ -19,7 +19,6 @@ Route::middleware('auth')->group( function() {
 
 	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
 	Route::post('/admin/message/create', ['uses'=>'MessageController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::post('/admin/message/update/{vol}', ['uses'=>'MessageController@update','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
 	Route::delete('/admin/message/delete/{vol}', ['uses'=>'MessageController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
 
 	Route::get('/admin/membres', ['uses'=>'MembreController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);

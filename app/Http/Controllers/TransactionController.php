@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
+use App\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -35,16 +36,16 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $reserve = new Reservation;
+        $trans = new Transaction;
 
-        $reserve->Numero = request('numero');
-        $reserve->DateReservation = request('date');
-        $reserve->vol_id = request('vol');
-        $reserve->Passager = request('passager');
+        $trans->UserID = request('userId');
+        $trans->Type = request('type');
+        $trans->Amount = request('montant');
+        $trans->Date = request('date');
 
-        $reserve->save();
+        $trans->save();
 
-        return redirect('/');
+        return redirect('/admin/transactions');
     }
 
     /**
@@ -56,7 +57,8 @@ class TransactionController extends Controller
     public function showAll()
     {
         $trans = Transaction::All();
-        return view('admin/transactions', compact('trans'));
+        $users = User::All();
+        return view('admin/transactions', compact('trans','users'));
     }
 
     /**

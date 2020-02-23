@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     public function transaction(){
-        return $this->hasMany(Transaction::class);
+        return $this->hasOne(Transaction::class);
     }
 
     public function roles(){

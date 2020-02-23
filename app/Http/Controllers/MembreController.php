@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
+use App\Compte;
 use App\Transactions;
 use Illuminate\Http\Request;
 
@@ -36,7 +38,35 @@ class MembreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->password = 'easycredit';
+        $user->phone = request('phone');
+        $user->created_at = request('date');
+        $user->save();
+
+        if(request('role') == 3) {
+            $user->roles()->attach(Role::where('name','Member')->first());
+        }
+
+        if(request('role') == 2) {
+            $user->roles()->attach(Role::where('name','Staff')->first());
+        }
+
+        if(request('role') == 1) {
+            $user->roles()->attach(Role::where('name','Admin')->first());
+        }
+
+        $user->save();
+
+        $compte = new Compte;
+        $compte->UserId = $user->id;
+        $compte->Solde = 0;
+        $compte->save();
+
+        return redirect('/admin/membres');
     }
 
     public function showProfile()

@@ -1,9 +1,8 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      	<a href="#"><b>Contact</b></a> 
+      	<a href="/contact"><b>Contact</b></a> 
     </div>
-    <strong>Copyright &copy; <a href="https://adminlte.io">Easy Creddit</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy;</strong> All rights reserved.<strong> Powered by <a href="https://adminlte.io"> EasyCredit</a>.</strong>
 </footer>
 
 <!-- Control Sidebar -->

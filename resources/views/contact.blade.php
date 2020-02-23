@@ -19,6 +19,12 @@
 
     <section class="content">
         <div class="row">
+            @if (count($errors))
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> {{ $errors }}</h4>
+            </div>
+            @endif
             <div class="col-xs-6">
                 <!-- quick email widget -->
                 <div class="box box-info">
@@ -28,21 +34,22 @@
                         <h3 class="box-title">Commentaires & Suggestions</h3>
                     </div>
                     <div class="box-body">
-                        <form action="#" method="post">
+                        <form action="/admin/message/create" method="post">
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Objet :</label>
                                 <input type="text" class="form-control" name="subject" placeholder="Objet">
                             </div>
                             <div>
                                 <label>Message :</label>
-                                <textarea class="form-control" placeholder="Message" style="width: 100%; height: 125px;font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <textarea class="form-control" name="message" placeholder="Message" style="width: 100%; height: 125px;font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                             </div>
-                        </form>
                     </div>
                     <div class="box-footer clearfix">
-                        <button type="button" class="pull-right btn btn-default" id="sendEmail">Envoyer
+                        <button type="submit" class="pull-right btn btn-primary">Envoyer
                         <i class="fa fa-arrow-circle-right"></i></button>
                     </div>
+                        </form>
                 </div>
                 <!-- /.box -->
             </div>

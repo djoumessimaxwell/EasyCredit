@@ -20,7 +20,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box">
+                <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title col-xs-6">Liste des membres</h3>
                         <div class="pull-right box-tools">
@@ -78,38 +78,39 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-                <div class="modal modal-success fade" id="modal-success">
+                <div class="modal modal-default fade" id="modal-success">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header bg-info">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title">Formulaire d'ajout d'un Membre</h4>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form method="POST" action="/admin/membre/create">
+                                    {{ csrf_field() }}
                                     <div class="form-group">
                                         <label>Nom :</label>
 
-                                        <input type="text" class="form-control" placeholder="Entrer le nom">
+                                        <input type="text" name="name" class="form-control" placeholder="Entrer le nom">
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail :</label>
 
-                                        <input type="text" class="form-control" placeholder="Entrer l'E-mail">
+                                        <input type="text" name="email" class="form-control" placeholder="Entrer l'E-mail">
                                     </div>
                                     <div class="form-group">
                                         <label>Téléphone :</label>
 
-                                        <input type="text" class="form-control" placeholder="Numéro de téléphone">
+                                        <input type="text" name="phone" class="form-control" placeholder="Numéro de téléphone">
                                     </div>
                                     <div class="form-group">
                                         <label>Role :</label>
 
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Membre</option>
-                                            <option>Personnel</option>
-                                            <option>Admin</option>
+                                        <select class="form-control select2" name="role" style="width: 100%;">
+                                            <option value="3">Membre</option>
+                                            <option value="2">Personnel</option>
+                                            <option value="1">Admin</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -119,13 +120,13 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="datepicker">
+                                            <input type="text" name="date" class="form-control pull-right" id="datepicker">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                    <button type="button" class="btn btn-outline">Valider</button>
+                                    <button type="submit" class="btn btn-primary">Valider</button>
                                 </div>
                             </form>
                         </div>
@@ -142,6 +143,15 @@
 @endsection
 
 @section('script')
+    <script>
+        $(function () {
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+        })
+    </script>
+
     <script>
       $(function () {
         $('#example1').DataTable()

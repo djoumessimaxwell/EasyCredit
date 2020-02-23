@@ -22,7 +22,7 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box">
+                <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">Transactions effectuées</h3>
                         <div class="pull-right box-tools">
@@ -48,16 +48,22 @@
                                 <tr>
 
                                     <td>{{$transaction->id}}</td>
-                                    <td>{{$transaction->user[name]}}</td>
+                                    @foreach($users as $user)
+                                        @if($transaction->UserId == $user->id)
+                                            <td>{{$user->name}}</td>
+                                        @endif
+                                    @endforeach
                                     <td>
-                                        @if( $transaction->Type == "Débit")
-                                            <small class="label bg-green">Débit</small>
-                                        @elseif( $transaction->Type == "Crédit")
-                                            <small class="label bg-yellow">Crédit</small>
-                                        @endif</center>
+                                        <center>
+                                            @if( $transaction->Type == "1")
+                                                <small class="label bg-green">Crébit</small>
+                                            @elseif( $transaction->Type == "0")
+                                                <small class="label bg-yellow">Dédit</small>
+                                            @endif
+                                        </center>
                                     </td>
                                     <td>{{$transaction->Amount}}</td>
-                                    <td> <strong> {{$transaction->Date->toFormattedDateString()}} </strong></td>
+                                    <td> <strong> {{$transaction->Date}} </strong></td>
                                     <td><center>
                                         <button type="submit" class="try-delete-user" data-id="{{$transaction->id}}" data-name="{{$transaction->id}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button></center>
                                     </td>
@@ -74,43 +80,82 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-                <div class="modal modal-success fade" id="modal-success">
+            </div>
+
+            <div class="col-xs-12">
+                <div class="box box-danger">
+                    <div class="box-header">
+                        <h3 class="box-title">Vue d'ensemble</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped">
+                            <thead>
+                                <tr class="bg-info">
+                                    <th>N°</th>
+                                    <th>Membres</th>
+                                    <th>Date dernière transaction</th>
+                                    <th>Montant</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach($users as $user)
+                                <tr>
+
+                                    <td>{{$user->id}}</td>
+                                    <td>{{$user->name}}</td>
+                                    <td><strong> {{$transaction->Date}} </strong></td>
+                                    <td>{{$transaction->Amount}}</td>
+                                    <td> <strong> {{$transaction->Date}} </strong></td>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+
+                            <tfoot>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <div class="modal modal-default fade" id="modal-success">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header bg-info">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title">Formulaire d'une Transaction</h4>
                             </div>
                             <div class="modal-body">
-                                <form >
+                                <form method="POST" action="/admin/transaction/create">
+                                    {{ csrf_field() }}
                                     <div class="form-group">
                                         <label>Membre :</label>
 
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
+                                        <select class="form-control select2" name="userId" style="width: 100%;">
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Type de transaction :</label>
 
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Débit</option>
-                                            <option>Crédit</option>
+                                        <select class="form-control select2" name="type" style="width: 100%;">
+                                            <option value="1">Créditer</option>
+                                            <option value="0">Déditer</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Montant :</label>
-                                        
+
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" name="montant" id="montant">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -120,13 +165,13 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="datepicker">
+                                            <input type="text" class="form-control pull-right" name="date" id="datepicker">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                    <button type="button" class="btn btn-outline">Valider</button>
+                                    <button type="submit" class="btn btn-primary">Valider</button>
                                 </div>
                             </form>
                         </div>
@@ -143,6 +188,15 @@
 @endsection
 
 @section('script')
+    <script>
+        $(function () {
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+        })
+    </script>
+
     <script>
       $(function () {
         $('#example1').DataTable()

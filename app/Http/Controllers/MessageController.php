@@ -35,7 +35,23 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = new Message;
+
+        $message->name = auth()->user()->name;
+        $message->email = auth()->user()->email;
+        $message->phone = auth()->user()->phone;
+        $message->subject = request('subject');
+        $message->message = request('message');
+
+        $message->save();
+
+        if($message){
+            $errors = "Message envoyé !";
+            return redirect()->back()->withErrors($errors);
+        }else{
+            $errors = "Echec !";
+            return redirect()->back()->withErrors($errors);
+        }
     }
 
     /**
@@ -46,8 +62,8 @@ class MessageController extends Controller
      */
     public function showAll()
     {
-        $message = Message::All();
-        return view('admin/messages', compact('message'));
+        $messages = Message::All();
+        return view('admin/messages', compact('messages'));
     }
 
     /**
