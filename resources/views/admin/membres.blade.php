@@ -62,8 +62,11 @@
                                         @endif</center>
                                     </td>
 
-                                    <td><center>
-                                        <button type="submit" class="try-delete-user" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button></center>
+                                    <td>
+                                        <center>
+                                            <button type="submit" class="try-delete-user" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button title="modifier"><span><i class="fa fa-edit" style="color:blue;"></i></span></button>
+                                        </center>
                                     </td>
 
                                 </tr>

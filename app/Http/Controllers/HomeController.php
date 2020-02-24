@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Compte;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +15,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $membres = User::All()->count();
+        $comptes = Compte::All()->add();
+        $solde = Compte::find(auth()->user()->id);
+        
+        return view('dashboard', compact('solde', 'fond', 'membres'));
     }
 
     /**

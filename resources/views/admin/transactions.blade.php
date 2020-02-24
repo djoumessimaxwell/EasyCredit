@@ -64,8 +64,11 @@
                                     </td>
                                     <td>{{$transaction->Amount}}</td>
                                     <td> <strong> {{$transaction->Date}} </strong></td>
-                                    <td><center>
-                                        <button type="submit" class="try-delete-user" data-id="{{$transaction->id}}" data-name="{{$transaction->id}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button></center>
+                                    <td>
+                                        <center>
+                                            <button type="submit" class="try-delete-user" data-id="{{$transaction->id}}" data-name="{{$transaction->id}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button title="modifier"><span><i class="fa fa-edit" style="color:blue;"></i></span></button>
+                                        </center>
                                     </td>
 
                                 </tr>
@@ -96,7 +99,7 @@
                                     <th>Membres</th>
                                     <th>Date dernière transaction</th>
                                     <th>Montant</th>
-                                    <th>Total</th>
+                                    <th>Solde</th>
                                 </tr>
                             </thead>
 

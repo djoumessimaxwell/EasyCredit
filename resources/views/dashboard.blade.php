@@ -26,7 +26,7 @@
                 <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{ $solde->Solde }}</h3>
 
                             <p>Mon solde</p>
                         </div>
@@ -41,7 +41,7 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h3>{{ $fond }}</h3>
 
                             <p>Fond total</p>
                         </div>
@@ -56,7 +56,7 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{ $membres }}</h3>
 
                             <p>Membres</p>
                         </div>
