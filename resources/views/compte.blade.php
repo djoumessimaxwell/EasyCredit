@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Documentation
+    Crédit
 @endsection
 
 @section('content')

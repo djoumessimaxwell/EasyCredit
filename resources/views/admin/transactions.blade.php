@@ -14,7 +14,7 @@
             <small>Débit & Crédit</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
         </ol>
     </section>
 
@@ -63,7 +63,7 @@
                                         </center>
                                     </td>
                                     <td>{{$transaction->Amount}}</td>
-                                    <td> <strong> {{$transaction->Date}} </strong></td>
+                                    <td> <strong> {{$transaction->created_at->toFormattedDateString()}} </strong></td>
                                     <td>
                                         <center>
                                             <button type="submit" class="try-delete-user" data-id="{{$transaction->id}}" data-name="{{$transaction->id}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
@@ -97,9 +97,8 @@
                                 <tr class="bg-info">
                                     <th>N°</th>
                                     <th>Membres</th>
-                                    <th>Date dernière transaction</th>
-                                    <th>Montant</th>
                                     <th>Solde</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -109,9 +108,16 @@
 
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->name}}</td>
-                                    <td><strong> {{$transaction->Date}} </strong></td>
-                                    <td>{{$transaction->Amount}}</td>
-                                    <td> <strong> {{$transaction->Date}} </strong></td>
+                                    @foreach($soldes as $solde)
+                                        @if($solde->UserId == $user->id)
+                                            <td> <strong> {{$solde->Solde}} </strong></td>
+                                        @endif
+                                    @endforeach
+                                    <td>
+                                        <center>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-eye" style="color:blue;"> </i></button>
+                                        </center>
+                                    </td>
 
                                 </tr>
                                 @endforeach
@@ -157,7 +163,7 @@
                                         <label>Montant :</label>
 
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-money"></i></span>
                                             <input type="text" class="form-control" name="montant" id="montant">
                                         </div>
                                     </div>
@@ -177,6 +183,51 @@
                                     <button type="submit" class="btn btn-primary">Valider</button>
                                 </div>
                             </form>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+                <div class="modal modal-default fade" id="modal-danger">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Toutes les transactions de </h4>
+                            </div>
+                            <div class="modal-body">
+                                <table id="example2" class="table table-bordered table-striped">
+                                  <thead>
+                                  </thead>
+
+                                  <tbody>
+                                    @foreach($trans as $tran)
+                                      <tr class="bg-info">
+                                        <td>
+                                          <!-- drag handle -->
+                                          <span>
+                                            <i class="fa fa-ellipsis-v"></i>
+                                            <i class="fa fa-ellipsis-v"></i>
+                                          </span>
+                                          <!-- todo text -->
+                                          @if($tran->Type == 1)
+                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Dêpot de {{ $tran->Amount }} FCFA</span>
+                                          @elseif($tran->Type == 0)
+                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Retrait de {{ $tran->Amount }} FCFA</span>
+                                          @endif
+                                        </td>
+                                      </tr>
+                                    @endforeach
+                                  </tbody>
+
+                                  <tfoot>
+                                  </tfoot>
+
+                              </table>
+                            </div>
                         </div>
                         <!-- /.modal-content -->
                     </div>

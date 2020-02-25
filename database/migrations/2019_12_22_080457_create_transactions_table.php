@@ -18,7 +18,6 @@ class CreateTransactionsTable extends Migration
             $table->integer('UserId');
             $table->boolean('Type');
             $table->integer('Amount');
-            $table->date('Date');
             $table->timestamps();
         });
     }

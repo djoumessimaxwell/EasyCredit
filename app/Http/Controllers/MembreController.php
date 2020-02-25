@@ -7,6 +7,8 @@ use App\Role;
 use App\Compte;
 use App\Transactions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class MembreController extends Controller
 {
@@ -42,9 +44,10 @@ class MembreController extends Controller
 
         $user->name = request('name');
         $user->email = request('email');
-        $user->password = 'easycredit';
+        $user->password = Hash::make('easycredit');
         $user->phone = request('phone');
-        $user->created_at = request('date');
+        $date = request('date');
+        $user->created_at = strtotime($date);
         $user->save();
 
         if(request('role') == 3) {

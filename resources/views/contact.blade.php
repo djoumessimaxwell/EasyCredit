@@ -13,7 +13,7 @@
             Nous contacter
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-dashboard"></i> Accueil</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
         </ol>
     </section>
 
@@ -67,7 +67,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-paperplane-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">5,200</span>
+                                <span class="info-box-number">A remplir</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -75,7 +75,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-location-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">5,200</span>
+                                <span class="info-box-number">A remplir</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -83,7 +83,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-telephone-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">5,200</span>
+                                <span class="info-box-number">A remplir</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

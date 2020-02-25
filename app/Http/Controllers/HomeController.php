@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Compte;
 use App\User;
+use App\Transaction;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,10 +17,11 @@ class HomeController extends Controller
     public function index()
     {
         $membres = User::All()->count();
-        $comptes = Compte::All()->add();
-        $solde = Compte::find(auth()->user()->id);
+        $fond = Compte::get()->sum("Solde");
+        $solde = Compte::where('UserId', auth()->user()->id)->first();
+        $trans = Transaction::All()->where('UserId', auth()->user()->id);
         
-        return view('dashboard', compact('solde', 'fond', 'membres'));
+        return view('dashboard', compact('solde', 'fond', 'membres', 'trans'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\User;
+use App\Compte;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -41,9 +42,19 @@ class TransactionController extends Controller
         $trans->UserID = request('userId');
         $trans->Type = request('type');
         $trans->Amount = request('montant');
-        $trans->Date = request('date');
+        $date = request('date');
+        $trans->created_at = strtotime($date);
 
         $trans->save();
+
+        $compte = Compte::where('UserId', request('userId'))->first();
+        if($trans->Type == '1'){
+            $compte->Solde += request('montant');
+        }elseif($trans->Type == '0'){
+            $compte->Solde -= request('montant');
+        }
+
+        $compte->save();
 
         return redirect('/admin/transactions');
     }
@@ -58,7 +69,9 @@ class TransactionController extends Controller
     {
         $trans = Transaction::All();
         $users = User::All();
-        return view('admin/transactions', compact('trans','users'));
+        $soldes = Compte::All();
+            
+        return view('admin/transactions', compact('trans','users','soldes'));
     }
 
     /**
