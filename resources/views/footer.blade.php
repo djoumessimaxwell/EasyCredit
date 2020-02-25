@@ -2,7 +2,7 @@
     <div class="pull-right hidden-xs">
       	<a href="/contact"><b>Contact</b></a> 
     </div>
-    <strong>Copyright &copy;</strong> All rights reserved.<strong> Powered by <a href="https://adminlte.io"> EasyCredit</a>.</strong>
+    <strong>Copyright &copy;</strong> All rights reserved.<strong> Powered by <a href="#"> EasyCredit</a>.</strong>
 </footer>
 
 <!-- Control Sidebar -->

@@ -51,11 +51,11 @@ class MembreController extends Controller
         $user->save();
 
         if(request('role') == 3) {
-            $user->roles()->attach(Role::where('name','Member')->first());
+            $user->roles()->attach(Role::where('name','Membre')->first());
         }
 
         if(request('role') == 2) {
-            $user->roles()->attach(Role::where('name','Staff')->first());
+            $user->roles()->attach(Role::where('name','Personnel')->first());
         }
 
         if(request('role') == 1) {
@@ -116,81 +116,37 @@ class MembreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
 
-    public function updateProfile(Request $request, $id)
-    {
+        $user = User::find($id);
+        $user->name =$request->name;
+        $user->phone = $request->phone;
+        $user->email=$request->email;
 
-        $profile = User::find($id);
-        $profile->first_name =$request->first_name;
-        $profile->last_name = $request->last_name;
-        $profile->email=$request->email;
-
-        $usersubscribed = Subscription::where('user_id', $id)->first();
-
-        if($usersubscribed) {
-            if($request->premium == 0){
-
-                $usersubscribed->delete();
-
-            }elseif($request->premium == 1){
-
-                if(!$usersubscribed){
-                    $subs = new Subscription;
-                    $subs->user_id = $id;
-                    $subs->expiration_date = Carbon::now()->addDays(30);
-                    $subs->is_premium = 1;
-                    $subs->is_premium_plus = 0;
-                    //$subs->amount = $this->getAmount();
-                    $subs->amount = 2;
-                    $subs->save();
-                }
-
-            }
-        }
-
-
-
-        if(!$request['role_user'] && !$request['role_student'] && !$request['role_staff'] && !$request['role_author'] && !$request['role_teacher'] && !$request['role_instructor'] && !$request['role_admin'] && !$request['role_superadmin']){
+        if(!$request['role']){
             
         }
         else{
-        $profile->roles()->detach();
-        if($request['role_user']) {
-            $profile->roles()->attach(Role::where('name','User')->first());
-        }
+            $user->roles()->detach();
+            if($request['role'] == 1 ) {
+                $user->roles()->attach(Role::where('name','Admin')->first());
+            }
 
-        if($request['role_student']) {
-            $profile->roles()->attach(Role::where('name','Student')->first());
-        }
+            if($request['role'] == 2 ) {
+                $user->roles()->attach(Role::where('name','Personnel')->first());
+            }
 
-        if($request['role_staff']) {
-            $profile->roles()->attach(Role::where('name','Staff')->first());
+            if($request['role'] == 3 ) {
+                $user->roles()->attach(Role::where('name','Membre')->first());
+            }
         }
+        $user->save();
 
-        if($request['role_author']) {
-            $profile->roles()->attach(Role::where('name','Author')->first());
+        if($user){
+            $errors = "Modification réussie !";
+            return redirect()->back()->withErrors($errors);
+        }else{
+            return redirect()->back();
         }
-        if($request['role_teacher']) {
-            $profile->roles()->attach(Role::where('name','Teacher')->first());
-        }
-
-        if($request['role_instructor']) {
-            $profile->roles()->attach(Role::where('name','Instructor')->first());
-        }
-
-        if($request['role_admin']) {
-            $profile->roles()->attach(Role::where('name','Admin')->first());
-        }
-
-        if($request['role_superadmin']) {
-            $profile->roles()->attach(Role::where('name','SuperAdmin')->first());
-        }
-        }
-        $profile->save();
-
-        return redirect()->back();
     }
 
     /**
@@ -202,16 +158,19 @@ class MembreController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if($user){
-            $userprofile = Profile::where('user_id', $id)->first();
-            if($userprofile){
-                $userprofile->delete();
-            }
-            $user->delete();
-
+        
+        $usercompte = Compte::where('user_id', $id)->first();
+        if($usercompte){
+            $usercompte->delete();
         }
+        $user->delete();
 
-        return redirect()->back();
+        if(!$user){
+            $errors = "Membre supprimé !";
+            return redirect()->back()->withErrors($errors);
+        }else{
+            return redirect()->back();
+        }
 
     }
 }

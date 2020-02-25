@@ -94,12 +94,38 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reserve = Reservation::find($id);
+        $trans = Transaction::find($id);
+        $type = $trans->Type;
+        $amount = $trans->Amount;
         
-        $reserve->Numero = $request->numero;
-        $reserve->DateReservation = $request->date;
-        $reserve->vol_id = $request->vol;
-        $reserve->save();
+        $trans->UserID = request('userId');
+        $trans->Type = request('type');
+        $trans->Amount = request('montant');
+        $date = request('date');
+        $trans->created_at = strtotime($date);
+        $trans->save();
+
+        $compte = Compte::where('UserId', request('userId'))->first();
+        if($type == '1'){
+            $compte->Solde -= $amount;
+        }elseif($type == '0'){
+            $compte->Solde += $amount;
+        }
+
+        if($trans->Type == '1'){
+            $compte->Solde += request('montant');
+        }elseif($trans->Type == '0'){
+            $compte->Solde -= request('montant');
+        }
+
+        $compte->save();
+
+        if($compte){
+            $errors = "Modification réussie !";
+            return redirect()->back()->withErrors($errors);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -110,11 +136,26 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        $reserve = Reservation::find($id);
+        $trans = Transaction::find($id);
+        $type = $trans->Type;
+        $amount = $trans->Amount;
 
-        if($reserve) {
-            $reserve->delete();
-        } 
-        return redirect('/');
+        $compte = Compte::where('UserId', $trans->UserId)->first();
+        if($type == '1'){
+            $compte->Solde -= $amount;
+        }elseif($type == '0'){
+            $compte->Solde += $amount;
+        }
+
+        $compte->save();
+
+        $trans->delete();
+
+        if(!$trans){
+            $errors = "Transaction supprimée !";
+            return redirect()->back()->withErrors($errors);
+        }else{
+            return redirect()->back();
+        }
     }
 }

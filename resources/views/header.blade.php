@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      
+      <span class="logo-mini"><img src="{{ URL::asset('img/logo3.jpg') }}" style="border-radius: 40%" alt="User Image"></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><img src="{{ URL::asset('img/logo3.jpg') }}" style="border-radius: 40%" alt="User Image"><b> Easy</b>Credit</span>
     </a>

@@ -46,11 +46,10 @@ class MessageController extends Controller
         $message->save();
 
         if($message){
-            $errors = "Message envoyé !";
+            $errors = "Error message!";
             return redirect()->back()->withErrors($errors);
         }else{
-            $errors = "Echec !";
-            return redirect()->back()->withErrors($errors);
+            return redirect()->back();
         }
     }
 
@@ -97,6 +96,11 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        if($message){
+            $errors = "Error message!";
+            return redirect()->back()->withErrors($errors);
+        }else{
+            return redirect()->back();
+        }
     }
 }

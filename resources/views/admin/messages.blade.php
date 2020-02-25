@@ -20,6 +20,14 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
+                @if (count($errors))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fa fa-check"></i> Message supprimé !</h5>
+                </div>
+                @endif
+            </div>
+            <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">Commentaires et suggestions des utilisateurs</h3>

@@ -20,6 +20,14 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
+                @if (count($errors))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fa fa-check"></i> {{ $errors }}</h5>
+                </div>
+                @endif
+            </div>
+            <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title col-xs-6">Liste des membres</h3>
@@ -64,8 +72,8 @@
 
                                     <td>
                                         <center>
-                                            <button type="submit" class="try-delete-user" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button title="modifier"><span><i class="fa fa-edit" style="color:blue;"></i></span></button>
+                                            <button type="button" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" data-id="{{$user->id}}" data-toggle="modal" data-target="#modal-success" title="modifier"><i class="fa fa-edit" style="color:blue;"> </i></button>
                                         </center>
                                     </td>
 

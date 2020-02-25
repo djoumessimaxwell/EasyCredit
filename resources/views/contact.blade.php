@@ -19,12 +19,14 @@
 
     <section class="content">
         <div class="row">
-            @if (count($errors))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> {{ $errors }}</h4>
+            <div class="col-xs-12">
+                @if (count($errors))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fa fa-check"></i> Message envoyé !</h5>
+                </div>
+                @endif
             </div>
-            @endif
             <div class="col-xs-6">
                 <!-- quick email widget -->
                 <div class="box box-info">
@@ -67,7 +69,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-paperplane-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">A remplir</span>
+                                <span class="info-box-number">#######</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -75,7 +77,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-location-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">A remplir</span>
+                                <span class="info-box-number">#######</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -83,7 +85,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-telephone-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">A remplir</span>
+                                <span class="info-box-number">#######</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
