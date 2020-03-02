@@ -14,26 +14,6 @@ $(document).ready(function(){
     var oVol = $("#volbtn").clone(true);
 	var oReserve = $("#reservebtn").clone(true);
 
-    $("#volbtn").click(function(){
-
-        $("#volForm").slideToggle();
-        $("#hidevol").toggle();
-        $("#showvol").toggle();
-        $("#reservebtn").replaceWith(oReserve.clone(true));
-        $("#reserveForm").hide();
-
-    });
-
-    $("#reservebtn").click(function(){
-
-        $("#reserveForm").slideToggle();
-        $("#hidereserve").toggle();
-        $("#showreserve").toggle();
-        $("#volbtn").replaceWith(oVol.clone(true));
-        $("#volForm").hide();
-
-    });
-
     $("#edit-vol").click(function(){
 
         $("#volForm").slideToggle();
@@ -112,12 +92,10 @@ $(document).ready(function(){
 
     });
 
-    $(".delete-vol").click(function(){
+    $(".delete").click(function(){
 
-        $('.question-g-delete-q h3').html(Name);
-        $('#delete-form1').attr('action', url + id);
-        $('#confirm-delete-vol').show();
-        st.scrollTop();
+        $('.item h4').html(Name);
+        $('#delete-form').attr('action', url + id);
 
     });
 

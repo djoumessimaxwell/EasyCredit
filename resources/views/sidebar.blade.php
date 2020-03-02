@@ -11,7 +11,7 @@
           </a>
         </li>
         <li class="sidebar">
-          <a href="/crédit">
+          <a href="/credit">
             <i class="fa fa-pie-chart"></i><span>Demander un crédit</span>
           </a>
         </li>

@@ -12,7 +12,7 @@
 */
 Route::middleware('auth')->group( function() {
 	Route::get('/', 'HomeController@index');
-	Route::get('/crédit', 'CompteController@show');
+	Route::get('/credit', 'CompteController@show');
 	Route::get('/documentation', 'HomeController@showDoc');
 	Route::get('/contact', 'HomeController@contact');
 	Route::get('/profil', 'MembreController@showProfile');

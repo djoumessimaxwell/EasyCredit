@@ -94,9 +94,13 @@ class MessageController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy($id)
     {
-        if($message){
+        $message = Message::find($id);
+
+        $message->delete();
+
+        if(!$message){
             $errors = "Error message!";
             return redirect()->back()->withErrors($errors);
         }else{

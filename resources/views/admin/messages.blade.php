@@ -59,8 +59,8 @@
                                     </td>
                                     <td>
                                         <center>
-                                            <button type="submit" class="try-delete-user" data-id="{{$message->id}}" data-name="{{$message->subject}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button type="button" data-toggle="modal" data-target="#modal-success"><i class="fa fa-eye" style="color:blue;"> </i></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$message->id}}" data-name="{{$message->subject}}" data-url="/admin/message/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" data-message="{{$message->message}}" data-toggle="modal" data-target="#modal-success" title="visualiser" class="view"><i class="fa fa-eye" style="color:blue;"> </i></button>
                                         </center>
                                     </td>
 
@@ -79,7 +79,7 @@
                 <div class="modal modal-default fade" id="modal-success">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header bg-danger">
+                            <div class="modal-header bg-info">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title">Message</h4>
@@ -95,6 +95,28 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
+
+                <div class="modal modal-default fade" id="modal-danger">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h3>Etes-vous sure de vouloir supprimer ?</h3>
+                                <h4 class="item"></h4>
+                            </div>
+
+                            <div class="modal-footer">
+                                <form id="delete-form" method="POST" action="">
+                                    {{ csrf_field() }}
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -105,6 +127,18 @@
 @section('script')
     <script>
       $(function () {
+        $(".delete").click(function(){
+            var id = $(this).data('id');
+            var Name = $(this).data('name');
+            var url = $(this).data('url');
+            $('.item h4').html(Name);
+            $('#delete-form').attr('action', url + id);
+        });
+        $(".view").click(function(){
+            var msg = $(this).data('message');
+            $('blockquote').html(msg);
+        });
+        
         $('#example1').DataTable()
         $('#example2').DataTable({
           'paging'      : true,

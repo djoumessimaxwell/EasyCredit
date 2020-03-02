@@ -85,7 +85,12 @@
         <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
-          $.widget.bridge('uibutton', $.ui.button);
+            $(".sidebar a").each(function() {
+                //console.log($(this).attr('href'));
+                if ((window.location.pathname.indexOf($(this).attr('href'))) > -1) {
+                    $(this).parent().addClass('active');
+                }
+            });
         </script>
         <!-- Bootstrap 3.3.7 -->
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>

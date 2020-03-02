@@ -63,17 +63,17 @@
                                     <td><center>
                                         @if( $user->hasRole('Admin'))
                                             <small class="label bg-red">Admin</small>
-                                        @elseif( $user->hasRole('Staff'))
+                                        @elseif( $user->hasRole('Personnel'))
                                             <small class="label bg-green">Personnel</small>
-                                        @elseif( $user->hasRole('Member'))
+                                        @elseif( $user->hasRole('Membre'))
                                             <small class="label bg-yellow">Membre</small>
                                         @endif</center>
                                     </td>
 
                                     <td>
                                         <center>
-                                            <button type="button" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button type="button" data-id="{{$user->id}}" data-toggle="modal" data-target="#modal-success" title="modifier"><i class="fa fa-edit" style="color:blue;"> </i></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/admin/membre/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" data-id="{{$user->id}}" data-toggle="modal" data-target="#modal-success" title="modifier" class="update"><i class="fa fa-edit" style="color:blue;"> </i></button>
                                         </center>
                                     </td>
 
@@ -106,14 +106,14 @@
                                         <input type="text" name="name" class="form-control" placeholder="Entrer le nom">
                                     </div>
                                     <div class="form-group">
-                                        <label>E-mail :</label>
-
-                                        <input type="text" name="email" class="form-control" placeholder="Entrer l'E-mail">
-                                    </div>
-                                    <div class="form-group">
                                         <label>Téléphone :</label>
 
-                                        <input type="text" name="phone" class="form-control" placeholder="Numéro de téléphone">
+                                        <input type="text" name="email" class="form-control" placeholder="Numéro de téléphone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail :</label>
+
+                                        <input type="text" name="phone" class="form-control" placeholder="Entrer l'E-mail">
                                     </div>
                                     <div class="form-group">
                                         <label>Role :</label>
@@ -146,6 +146,28 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
+
+                <div class="modal modal-default fade" id="modal-danger">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h3>Etes-vous sure de vouloir supprimer ?</h3>
+                                <h4 class="item"></h4>
+                            </div>
+
+                            <div class="modal-footer">
+                                <form id="delete-form" method="POST" action="">
+                                    {{ csrf_field() }}
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -165,6 +187,15 @@
 
     <script>
       $(function () {
+        $(".delete").click(function(){
+            var id = $(this).data('id');
+            var Name = $(this).data('name');
+            var Numero = $(this).data('name');
+            var url = $(this).data('url');
+            $('.item h4').html(Name);
+            $('#delete-form').attr('action', url + id);
+        });
+
         $('#example1').DataTable()
         $('#example2').DataTable({
           'paging'      : true,

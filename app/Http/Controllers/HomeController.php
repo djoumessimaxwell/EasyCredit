@@ -37,10 +37,6 @@ class HomeController extends Controller
 
     public function contact()
     {
-        // $site = Site::find(1);
-        // $homepage = $site->company->homepage;
-
-        // $company = $site->company;
         return view('/contact');
     }
 }

@@ -22,6 +22,7 @@
         <section class="content">
             <!-- Small boxes (Stat box) -->
             <div class="row">
+                @if( Auth::user()->hasRole('Admin')  )
                 <div class="col-lg-4 col-xs-6">
                 <!-- small box -->
                     <div class="small-box bg-aqua">
@@ -64,6 +65,22 @@
                     </div>
                 </div>
                 <!-- ./col -->
+                @else
+                <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{ $solde->Solde }} <small>FCFA</small></h3>
+
+                            <p>Mon solde</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                @endif
             </div>
           <!-- /.row -->
           <!-- Main row -->

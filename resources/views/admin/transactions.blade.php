@@ -74,8 +74,8 @@
                                     <td> <strong> {{$transaction->created_at->toFormattedDateString()}} </strong></td>
                                     <td>
                                         <center>
-                                            <button type="submit" class="try-delete-user" data-id="{{$transaction->id}}" data-name="{{$transaction->id}}" data-url="/" title="supprimer"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button type="button" data-toggle="modal" data-target="#modal-success" title="modifier"><i class="fa fa-edit" style="color:blue;"> </i></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$transaction->id}}" data-name="{{$transaction->id}}" data-url="/admin/transaction/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" data-id="{{$transaction->id}}" data-toggle="modal" data-target="#modal-success" title="modifier" class="update"><i class="fa fa-edit" style="color:blue;"> </i></button>
                                         </center>
                                     </td>
 
@@ -123,7 +123,7 @@
                                     @endforeach
                                     <td>
                                         <center>
-                                            <button type="button" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-eye" style="color:blue;"> </i></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-info"><i class="fa fa-eye" style="color:blue;" title="visualiser"> </i></button>
                                         </center>
                                     </td>
 
@@ -198,7 +198,7 @@
                 </div>
                 <!-- /.modal -->
 
-                <div class="modal modal-default fade" id="modal-danger">
+                <div class="modal modal-default fade" id="modal-info">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header bg-danger">
@@ -242,6 +242,28 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
+
+                <div class="modal modal-default fade" id="modal-danger">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h3>Etes-vous sure de vouloir supprimer ?</h3>
+                                <h4 class="item"></h4>
+                            </div>
+
+                            <div class="modal-footer">
+                                <form id="delete-form" method="POST" action="">
+                                    {{ csrf_field() }}
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -261,6 +283,15 @@
 
     <script>
       $(function () {
+        $(".delete").click(function(){
+            var id = $(this).data('id');
+            var Name = $(this).data('name');
+            var Numero = $(this).data('name');
+            var url = $(this).data('url');
+            $('.item h4').html(Name);
+            $('#delete-form').attr('action', url + id);
+        });
+
         $('#example1').DataTable()
         $('#example2').DataTable({
           'paging'      : true,
