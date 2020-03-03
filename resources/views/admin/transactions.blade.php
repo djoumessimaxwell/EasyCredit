@@ -292,13 +292,15 @@
             $('#delete-form').attr('action', url + id);
         });
 
-        $('#example1').DataTable()
+        $('#example1').DataTable({
+          'scrollX'     : true})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,
           'searching'   : false,
           'ordering'    : true,
           'info'        : true,
+          'scrollX'     : true,
           'autoWidth'   : false
         })
       })

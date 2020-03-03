@@ -39,7 +39,7 @@ Login
                 <div class="col-xs-8">
                 </div>
                 <!-- /.col -->
-                <div class="col-xs-4">
+                <div class="col-xs-6 pull-right">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
                 </div>
                 <!-- /.col -->
