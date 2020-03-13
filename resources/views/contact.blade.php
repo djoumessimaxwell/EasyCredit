@@ -13,7 +13,7 @@
             Nous contacter
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
         </ol>
     </section>
 

@@ -14,7 +14,7 @@
             <small>Débit & Crédit</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
         </ol>
     </section>
 
@@ -39,7 +39,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr class="bg-info">
                                     <th>N°</th>
@@ -58,15 +58,17 @@
                                     <td>{{$transaction->id}}</td>
                                     @foreach($users as $user)
                                         @if($transaction->UserId == $user->id)
-                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->fullname}}</td>
                                         @endif
                                     @endforeach
                                     <td>
                                         <center>
-                                            @if( $transaction->Type == "1")
-                                                <small class="label bg-green">Crébit</small>
-                                            @elseif( $transaction->Type == "0")
-                                                <small class="label bg-yellow">Dédit</small>
+                                            @if( $transaction->Type == "Dépôt")
+                                                <small class="label bg-green">Dépôt</small>
+                                            @elseif( $transaction->Type == "Retrait")
+                                                <small class="label bg-yellow">Retrait</small>
+                                            @elseif( $transaction->Type == "Virement")
+                                                <small class="label bg-yellow">Virement</small>
                                             @endif
                                         </center>
                                     </td>
@@ -93,174 +95,83 @@
                 <!-- /.box -->
             </div>
 
-            <div class="col-xs-12">
-                <div class="box box-danger">
-                    <div class="box-header">
-                        <h3 class="box-title">Vue d'ensemble</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <table id="example2" class="table table-bordered table-striped">
-                            <thead>
-                                <tr class="bg-info">
-                                    <th>N°</th>
-                                    <th>Membres</th>
-                                    <th>Solde</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
+            <div class="modal modal-default fade" id="modal-success">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Formulaire d'une Transaction</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="/admin/transaction/create" id="transForm">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label>Membre :</label>
 
-                            <tbody>
-                                @foreach($users as $user)
-                                <tr>
+                                    <select class="form-control select2" name="userId" style="width: 100%;">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->fullname }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Type de transaction :</label>
 
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    @foreach($soldes as $solde)
-                                        @if($solde->UserId == $user->id)
-                                            <td> <strong> {{$solde->Solde}} </strong></td>
-                                        @endif
-                                    @endforeach
-                                    <td>
-                                        <center>
-                                            <button type="button" data-toggle="modal" data-target="#modal-info"><i class="fa fa-eye" style="color:blue;" title="visualiser"> </i></button>
-                                        </center>
-                                    </td>
+                                    <select class="form-control select2" name="type" style="width: 100%;">
+                                        <option value="Dépôt">Dépôt</option>
+                                        <option value="Retrait">Retrait</option>
+                                        <option value="Virement">Virement</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Montant :</label>
 
-                                </tr>
-                                @endforeach
-                            </tbody>
-
-                            <tfoot>
-                            </tfoot>
-
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-                <div class="modal modal-default fade" id="modal-success">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-info">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Formulaire d'une Transaction</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="/admin/transaction/create">
-                                    {{ csrf_field() }}
-                                    <div class="form-group">
-                                        <label>Membre :</label>
-
-                                        <select class="form-control select2" name="userId" style="width: 100%;">
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Type de transaction :</label>
-
-                                        <select class="form-control select2" name="type" style="width: 100%;">
-                                            <option value="1">Créditer</option>
-                                            <option value="0">Déditer</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Montant :</label>
-
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                                            <input type="text" class="form-control" name="montant" id="montant">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Date de transaction :</label>
-
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" name="date" id="datepicker">
-                                        </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                        <input type="number" class="form-control" name="montant" id="montant">
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                <div class="form-group">
+                                    <label>Date de transaction :</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" name="date" id="datepicker">
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-                <div class="modal modal-default fade" id="modal-info">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Toutes les transactions de </h4>
                             </div>
-                            <div class="modal-body">
-                                <table id="example2" class="table table-bordered table-striped">
-                                  <thead>
-                                  </thead>
-
-                                  <tbody>
-                                    @foreach($trans as $tran)
-                                      <tr>
-                                        <td>
-                                          <!-- drag handle -->
-                                          <span>
-                                            <i class="fa fa-ellipsis-v"></i>
-                                            <i class="fa fa-ellipsis-v"></i>
-                                          </span>
-                                          <!-- todo text -->
-                                          @if($tran->Type == 1)
-                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Dêpot de {{ $tran->Amount }} FCFA</span>
-                                          @elseif($tran->Type == 0)
-                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Retrait de {{ $tran->Amount }} FCFA</span>
-                                          @endif
-                                        </td>
-                                      </tr>
-                                    @endforeach
-                                  </tbody>
-
-                                  <tfoot>
-                                  </tfoot>
-
-                              </table>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-                <div class="modal modal-default fade" id="modal-danger">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                                <h3>Etes-vous sure de vouloir supprimer ?</h3>
-                                <h4 class="item"></h4>
-                            </div>
-
                             <div class="modal-footer">
-                                <form id="delete-form" method="POST" action="">
-                                    {{ csrf_field() }}
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
-                                </form>
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Valider</button>
                             </div>
+                        </form>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <div class="modal modal-default fade" id="modal-danger">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                            <h3>Etes-vous sure de vouloir supprimer ?</h3>
+                            <h4 class="item"></h4>
+                        </div>
+
+                        <div class="modal-footer">
+                            <form id="delete-form" method="POST" action="">
+                                {{ csrf_field() }}
+                                @method('DELETE')
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -283,6 +194,25 @@
 
     <script>
       $(function () {
+        $(".update").click(function(){
+            var id = $(this).data('id');
+            $.ajax({
+                method: "get",
+                url: "/admin/transactions/edit/" + id,
+                data: {id:id},
+                dataType: 'json',
+                success: function(response){
+                    $('#userId').val(response.userId);
+                    $('#type').val(response.type);
+                    $('#montant').val(response.montant);
+                    $('#date').val(response.date);
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+
         $(".delete").click(function(){
             var id = $(this).data('id');
             var Name = $(this).data('name');
@@ -290,6 +220,11 @@
             var url = $(this).data('url');
             $('.item h4').html(Name);
             $('#delete-form').attr('action', url + id);
+        });
+        $(".view").click(function(){
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            $('h4 small').html(name);
         });
 
         $('#example1').DataTable({

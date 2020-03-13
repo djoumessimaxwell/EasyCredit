@@ -10,11 +10,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Tableau de bord :
-                <small>Control panel</small>
+                Bienvenue 
+                <small>{{Auth::user()->fullname}}</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
+                <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
             </ol>
         </section>
 
@@ -23,7 +23,7 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 @if( Auth::user()->hasRole('Admin')  )
-                <div class="col-lg-4 col-xs-6">
+                <div class="col-lg-4 col-xs-12">
                 <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
@@ -32,12 +32,12 @@
                             <p>Mon solde</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="ion ion-cash"></i>
                         </div>
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-4 col-xs-6">
+                <div class="col-lg-4 col-xs-12">
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
@@ -46,12 +46,12 @@
                             <p>Fond total</p>
                         </div>
                         <div class="icon">
-                          <i class="ion ion-stats-bars"></i>
+                          <i class="ion ion-android-cart"></i>
                         </div>
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-4 col-xs-6">
+                <div class="col-lg-4 col-xs-12">
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
@@ -86,7 +86,7 @@
           <!-- Main row -->
           <div class="row">
             <!-- Left col -->
-            <section class="col-lg-7 connectedSortable">
+            <section class="col-lg-6 connectedSortable">
               
               <!-- TO DO List -->
               <div class="box box-primary">
@@ -105,10 +105,12 @@
                           <tr class="bg-info">
                             <td>
                               <!-- todo text -->
-                              @if($tran->Type == 1)
-                                <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }} </strong> :  Dêpot de {{ $tran->Amount }} FCFA</span>
-                              @elseif($tran->Type == 0)
+                              @if($tran->Type == "Dépôt")
+                                <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }} </strong> :  Dépôt de {{ $tran->Amount }} FCFA</span>
+                              @elseif($tran->Type == "Retrait")
                                 <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }}  :  Retrait de {{ $tran->Amount }} FCFA</span>
+                              @elseif($tran->Type == "Virement")
+                                <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }}  :  Virement de {{ $tran->Amount }} FCFA vers </span>
                               @endif
                             </td>
                           </tr>
@@ -127,81 +129,16 @@
             </section>
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            <section class="col-lg-5 connectedSortable">
+            <section class="col-lg-6 connectedSortable">
 
-              <!-- Calendar -->
-              <div class="box box-solid bg-green-gradient">
+              <div class="box box-success">
                 <div class="box-header">
-                  <i class="fa fa-calendar"></i>
-
-                  <h3 class="box-title">Calendar</h3>
-                  <!-- tools box -->
-                  <div class="pull-right box-tools">
-                    <!-- button with a dropdown -->
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bars"></i></button>
-                      <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#">Add new event</a></li>
-                        <li><a href="#">Clear events</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">View calendar</a></li>
-                      </ul>
-                    </div>
-                    <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
-                  </div>
-                  <!-- /. tools -->
+                  <i class="ion ion-line-chart"></i>
+                  <h3 class="box-title">Suivi de mes Crédits</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <!--The calendar -->
-                  <div id="calendar" style="width: 100%"></div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-black">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <!-- Progress bars -->
-                      <div class="clearfix">
-                        <span class="pull-left">Task #1</span>
-                        <small class="pull-right">90%</small>
-                      </div>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
-                      </div>
-
-                      <div class="clearfix">
-                        <span class="pull-left">Task #2</span>
-                        <small class="pull-right">70%</small>
-                      </div>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
-                      </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-6">
-                      <div class="clearfix">
-                        <span class="pull-left">Task #3</span>
-                        <small class="pull-right">60%</small>
-                      </div>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 60%;"></div>
-                      </div>
-
-                      <div class="clearfix">
-                        <span class="pull-left">Task #4</span>
-                        <small class="pull-right">40%</small>
-                      </div>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
-                      </div>
-                    </div>
-                    <!-- /.col -->
-                  </div>
-                  <!-- /.row -->
+                <div class="box-body">
+                  
                 </div>
               </div>
               <!-- /.box -->
@@ -220,6 +157,16 @@
 @section('script')
     <script>
       $(function () {
+        $("#edit-btn").click(function(){
+
+            $('#update-btn').removeAttr('Style');
+            $('input[type=text]').removeAttr('readonly');
+            $('input[type=file]').removeAttr('disabled');
+            $('input[type=checkbox]').removeAttr('disabled');
+            $('input[type=radio]').removeAttr('disabled');
+            $('select').removeAttr('disabled');
+        });
+
         $('#example1').DataTable()
         $('#example2').DataTable({
           'paging'      : true,

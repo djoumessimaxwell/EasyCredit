@@ -48,10 +48,13 @@ class TransactionController extends Controller
         $trans->save();
 
         $compte = Compte::where('UserId', request('userId'))->first();
-        if($trans->Type == '1'){
+        if($trans->Type == 'Dépôt'){
             $compte->Solde += request('montant');
-        }elseif($trans->Type == '0'){
+        }elseif($trans->Type == 'Retrait'){
             $compte->Solde -= request('montant');
+        }elseif($trans->Type == 'Virement'){
+            $compte->Solde -= request('montant');
+
         }
 
         $compte->save();
@@ -69,9 +72,8 @@ class TransactionController extends Controller
     {
         $trans = Transaction::All();
         $users = User::All();
-        $soldes = Compte::All();
             
-        return view('admin/transactions', compact('trans','users','soldes'));
+        return view('admin/transactions', compact('trans','users'));
     }
 
     /**
@@ -80,9 +82,18 @@ class TransactionController extends Controller
      * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function edit(id $id)
+    public function edit(Request $request)
     {
-        //
+        $id = $request->input('id');
+        $trans = Transaction::find($id);
+        $users = User::All();
+        $output = array(
+            'userId' => $trans->UserID,
+            'type' => $trans->Type,
+            'montant' => $trans->Amount,
+            'date' => $trans->created_at->toFormattedDateString()
+        );
+        echo json_encode($output);
     }
 
     /**
@@ -106,15 +117,19 @@ class TransactionController extends Controller
         $trans->save();
 
         $compte = Compte::where('UserId', request('userId'))->first();
-        if($type == '1'){
+        if($type == 'Dépôt'){
             $compte->Solde -= $amount;
-        }elseif($type == '0'){
+        }elseif($type == 'Retrait'){
+            $compte->Solde += $amount;
+        }elseif($type == 'Virement'){
             $compte->Solde += $amount;
         }
 
-        if($trans->Type == '1'){
+        if($trans->Type == 'Dépôt'){
             $compte->Solde += request('montant');
-        }elseif($trans->Type == '0'){
+        }elseif($trans->Type == 'Retrait'){
+            $compte->Solde -= request('montant');
+        }elseif($trans->Type == 'Virement'){
             $compte->Solde -= request('montant');
         }
 

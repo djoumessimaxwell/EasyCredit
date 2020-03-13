@@ -17,20 +17,22 @@ Route::middleware('auth')->group( function() {
 	Route::get('/contact', 'HomeController@contact');
 	Route::get('/profil', 'MembreController@showProfile');
 
-	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::post('/admin/message/create', ['uses'=>'MessageController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::delete('/admin/message/delete/{vol}', ['uses'=>'MessageController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::post('/admin/message/create', ['uses'=>'MessageController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::delete('/admin/message/delete/{id}', ['uses'=>'MessageController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 
-	Route::get('/admin/membres', ['uses'=>'MembreController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::get('/admin/membres/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::post('/admin/membre/create', ['uses'=>'MembreController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::post('/admin/membre/update/{vol}', ['uses'=>'MembreController@update','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::delete('/admin/membre/delete/{vol}', ['uses'=>'MembreController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::get('/admin/membres', ['uses'=>'MembreController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::get('/admin/membres/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::post('/admin/membre/create', ['uses'=>'MembreController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::get('/admin/membres/edit/{id}', ['uses'=>'MembreController@edit','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::post('/admin/membre/update/{id}', ['uses'=>'MembreController@update','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::delete('/admin/membre/delete/{id}', ['uses'=>'MembreController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 
-	Route::get('/admin/transactions', ['uses'=>'TransactionController@showAll','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::post('/admin/transaction/create', ['uses'=>'TransactionController@store','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::post('/admin/transaction/update/{reserve}', ['uses'=>'TransactionController@update','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
-	Route::delete('/admin/transaction/delete/{reserve}', ['uses'=>'TransactionController@destroy','middleware'=>'roles', 'roles'=>['Admin','Staff']]);
+	Route::get('/admin/transactions', ['uses'=>'TransactionController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::post('/admin/transaction/create', ['uses'=>'TransactionController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::get('/admin/transactions/edit/{id}', ['uses'=>'TransactionController@edit','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::post('/admin/transaction/update/{id}', ['uses'=>'TransactionController@update','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::delete('/admin/transaction/delete/{id}', ['uses'=>'TransactionController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 });
 Auth::routes();
 

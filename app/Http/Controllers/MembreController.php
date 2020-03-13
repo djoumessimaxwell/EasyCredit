@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use App\Compte;
-use App\Transactions;
+use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,7 +42,8 @@ class MembreController extends Controller
     {
         $user = new User;
 
-        $user->name = request('name');
+        $user->firstname = request('firstname');
+        $user->lastname = request('lastname');
         $user->email = request('email');
         $user->password = Hash::make('easycredit');
         $user->phone = request('phone');
@@ -93,7 +94,9 @@ class MembreController extends Controller
     public function showAll()
     {
         $users = User::All();
-        return view('admin/membres', compact('users'));
+        $trans = Transaction::All();
+        $soldes = Compte::All();
+        return view('admin/membres', compact('users', 'trans','soldes'));
     }
 
     /**
@@ -102,9 +105,19 @@ class MembreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $id = $request->input('id');
+        $users = User::find($id);
+        $output = array(
+            'firstname' => $users->firstname,
+            'lastname' => $users->lastname,
+            'tel' => $users->phone,
+            'email' => $users->email,
+            'role' => $users->role,
+            'date' => $users->created_at->toFormattedDateString()
+        );
+        echo json_encode($output);
     }
 
     /**
@@ -118,7 +131,8 @@ class MembreController extends Controller
     {
 
         $user = User::find($id);
-        $user->name =$request->name;
+        $user->firstname =$request->firstname;
+        $user->lastname =$request->lastname;
         $user->phone = $request->phone;
         $user->email=$request->email;
 

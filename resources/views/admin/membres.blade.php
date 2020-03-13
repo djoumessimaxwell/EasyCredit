@@ -13,7 +13,7 @@
             Gestion des Utilisateurs
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
         </ol>
     </section>
 
@@ -37,12 +37,13 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr class="bg-info">
                                     <th>Nom</th>
-                                    <th>E-mail</th>
                                     <th>Téléphone</th>
+                                    <th>E-mail</th>
+                                    <th>Solde</th>
                                     <th>Date d'adhésion</th>
                                     <th>Role</th>
                                     <th>Actions</th>
@@ -53,9 +54,14 @@
                                 @foreach($users as $user)
                                 <tr>
 
-                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->fullname}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->phone}}</td>
+                                    @foreach($soldes as $solde)
+                                        @if($solde->UserId == $user->id)
+                                            <td> <strong> {{$solde->Solde}} </strong></td>
+                                        @endif
+                                    @endforeach
                                     <td> <strong> {{$user->created_at->toFormattedDateString()}} </strong><br/>
                                         {{$user->created_at->diffForHumans()}}
                                     </td>
@@ -72,8 +78,9 @@
 
                                     <td>
                                         <center>
-                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->ame}}" data-url="/admin/membre/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->fullname}}" data-url="/admin/membre/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
                                             <button type="button" data-id="{{$user->id}}" data-toggle="modal" data-target="#modal-success" title="modifier" class="update"><i class="fa fa-edit" style="color:blue;"> </i></button>
+                                            <button type="button" class="view" data-toggle="modal" data-target="#modal-info" data-id="{{$user->id}}" data-name="{{$user->fullname}}"><i class="fa fa-eye" style="color:blue;" title="visualiser"> </i></button>
                                         </center>
                                     </td>
 
@@ -103,17 +110,22 @@
                                     <div class="form-group">
                                         <label>Nom :</label>
 
-                                        <input type="text" name="name" class="form-control" placeholder="Entrer le nom">
+                                        <input type="text" name="firstname" class="form-control" placeholder="Entrer le nom">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Prenom :</label>
+
+                                        <input type="text" name="lastname" class="form-control" placeholder="Entrer le nom">
                                     </div>
                                     <div class="form-group">
                                         <label>Téléphone :</label>
 
-                                        <input type="text" name="email" class="form-control" placeholder="Numéro de téléphone">
+                                        <input type="tel" name="email" class="form-control" placeholder="Numéro de téléphone" pattern="[0-9]{9}">
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail :</label>
 
-                                        <input type="text" name="phone" class="form-control" placeholder="Entrer l'E-mail">
+                                        <input type="email" name="phone" class="form-control" placeholder="Entrer l'E-mail">
                                     </div>
                                     <div class="form-group">
                                         <label>Role :</label>
@@ -140,6 +152,53 @@
                                     <button type="submit" class="btn btn-primary">Valider</button>
                                 </div>
                             </form>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+                <div class="modal modal-default fade" id="modal-info">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Toutes les transactions de <small></small></h4>
+                            </div>
+                            <div class="modal-body">
+                                <table id="example2" class="table table-bordered table-striped">
+                                  <thead>
+                                  </thead>
+
+                                  <tbody>
+                                    @foreach($trans as $tran)
+                                      <tr>
+                                        <td>
+                                          <!-- drag handle -->
+                                          <span>
+                                            <i class="fa fa-ellipsis-v"></i>
+                                            <i class="fa fa-ellipsis-v"></i>
+                                          </span>
+                                          <!-- todo text -->
+                                          @if($tran->Type == "Dépôt")
+                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Dépôt de {{ $tran->Amount }} FCFA</span>
+                                          @elseif($tran->Type == "Retrait")
+                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Retrait de {{ $tran->Amount }} FCFA</span>
+                                          @elseif($tran->Type == "Virement")
+                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Virement de {{ $tran->Amount }} FCFA vers </span>
+                                          @endif
+                                        </td>
+                                      </tr>
+                                    @endforeach
+                                  </tbody>
+
+                                  <tfoot>
+                                  </tfoot>
+
+                              </table>
+                            </div>
                         </div>
                         <!-- /.modal-content -->
                     </div>
