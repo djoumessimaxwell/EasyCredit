@@ -111,7 +111,9 @@
 
                                     <select class="form-control select2" name="userId" style="width: 100%;">
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->fullname }}</option>
+                                            @if($user->is_deleted == 0)
+                                                <option value="{{ $user->id }}">{{ $user->fullname }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

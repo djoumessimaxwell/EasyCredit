@@ -73,10 +73,11 @@ class MembreController extends Controller
         return redirect('/admin/membres');
     }
 
-    public function showProfile()
+    public function showProfile($id)
     {
-        $user = User::where('user_id',auth()->user()->id)->first();
-        return view('exams/users/profile', compact('user'));
+        $users = User::find($id);
+        $solde = Compte::find($id);
+        return view('/profile', compact('users','solde'));
     }
 
     public function showProfileById($id)
@@ -172,12 +173,13 @@ class MembreController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        if($user){
+           $user->is_deleted = '1';
+           $user->save();
+        }
         
         $usercompte = Compte::where('UserId', $id)->first();
-        if($usercompte){
-            $usercompte->delete();
-        }
-        $user->delete();
+        $usercompte->Solde = 0;
 
         if(!$user){
             $errors = "Membre supprimé !";

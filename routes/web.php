@@ -11,11 +11,14 @@
 |
 */
 Route::middleware('auth')->group( function() {
+	Route::get('/get-updates', 'TelegramController@getUpdates');
+	Route::post('/send-message', 'TelegramController@sendMessage');
+
 	Route::get('/', 'HomeController@index');
 	Route::get('/credit', 'CompteController@show');
 	Route::get('/documentation', 'HomeController@showDoc');
 	Route::get('/contact', 'HomeController@contact');
-	Route::get('/profil', 'MembreController@showProfile');
+	Route::get('/profile/{id}', 'MembreController@showProfile');
 
 	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::post('/admin/message/create', ['uses'=>'MessageController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);

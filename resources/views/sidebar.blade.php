@@ -27,7 +27,7 @@
           </a>
         </li>
 
-        @if( Auth::user()->hasRole('Admin')  )
+        @if( Auth::user()->hasRole('Admin') )
         <li class="header">Menu admin</li>
         <li class="sidebar">
           <a href="/admin/membres">
