@@ -19,6 +19,7 @@ Route::middleware('auth')->group( function() {
 	Route::get('/documentation', 'HomeController@showDoc');
 	Route::get('/contact', 'HomeController@contact');
 	Route::get('/profile/{id}', 'MembreController@showProfile');
+	Route::post('/change-password', 'MembreController@passwordChange')->name('change.password');
 
 	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::post('/admin/message/create', ['uses'=>'MessageController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);

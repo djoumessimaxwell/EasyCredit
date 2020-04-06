@@ -9,7 +9,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <center><h1>Cette page est actuellement en maintenance. Merci de l'a revisiter ultérieurement.</h1></center>
+        <center><h1>Cette page est actuellement en maintenance. Merci de la revisiter ultérieurement.</h1></center>
         <br><br>
     	<div class="row"><center>
             <div class="col-md-4" style="float: none;">

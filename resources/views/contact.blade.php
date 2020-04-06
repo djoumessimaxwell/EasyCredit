@@ -27,9 +27,9 @@
                 </div>
                 @endif
             </div>
-            <div class="col-xs-6">
+            <div class="col-lg-6">
                 <!-- quick email widget -->
-                <div class="box box-info">
+                <div class="box box-success">
                     <div class="box-header">
                         <i class="fa fa-envelope"></i>
 
@@ -48,7 +48,7 @@
                             </div>
                     </div>
                     <div class="box-footer clearfix">
-                        <button type="submit" class="pull-right btn btn-primary">Envoyer
+                        <button type="submit" class="pull-right btn btn-success">Envoyer
                         <i class="fa fa-arrow-circle-right"></i></button>
                     </div>
                         </form>
@@ -56,9 +56,9 @@
                 <!-- /.box -->
             </div>
 
-            <div class="col-xs-6">
+            <div class="col-lg-6">
                 <!-- quick email widget -->
-                <div class="box box-success">
+                <div class="box box-info">
                     <div class="box-header">
                         <i class="fa fa-list"></i>
 
@@ -69,7 +69,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-paperplane-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">#######</span>
+                                <span class="info-box-number">info@gifoka.com</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -77,7 +77,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-location-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">#######</span>
+                                <span class="info-box-number">Douala, Cameroun</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -85,7 +85,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-telephone-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">#######</span>
+                                <span class="info-box-number">(+237) 695452484</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

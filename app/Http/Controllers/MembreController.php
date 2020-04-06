@@ -7,6 +7,7 @@ use App\Role;
 use App\Compte;
 use App\Transaction;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,9 +28,19 @@ class MembreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function passwordChange(Request $request)
     {
-        //
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'confirm_password' => ['same:new_password'],
+        ]);
+
+        $messages = ['confirm_password.same' => 'Ne correspond pas au nouveau mot de passe',];
+   
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+   
+        dd('Password change successfully.');
     }
 
     /**
