@@ -164,7 +164,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
                             <h3>Etes-vous sure de vouloir supprimer ?</h3>
-                            <h4 class="item"></h4>
+                            <h4 class="item"><p></p></h4>
                         </div>
 
                         <div class="modal-footer">
@@ -220,7 +220,7 @@
             var Name = $(this).data('name');
             var Numero = $(this).data('name');
             var url = $(this).data('url');
-            $('.item h4').html(Name);
+            $('h4 p').html(Name);
             $('#delete-form').attr('action', url + id);
         });
         $(".view").click(function(){

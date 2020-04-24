@@ -37,7 +37,8 @@
 
                             <p class="text-muted text-center">
                                 @if( Auth::user()->hasRole('Admin') )Administrateur
-                                @elseif( Auth::user()->hasRole('Member') )Membre
+                                @elseif( Auth::user()->hasRole('Membre') )Membre
+                                @elseif( Auth::user()->hasRole('Personnel'))Personnel
                                 @endif
                             </p>
 
@@ -125,7 +126,7 @@
 
                                 @error('current_password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong style="color: red">{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -136,7 +137,7 @@
 
                                 @error('new_password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong style="color: red">{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -146,7 +147,7 @@
 
                                 @error('confirm_password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong style="color: red">{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -160,54 +161,6 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-
-                <div class="modal modal-default fade" id="modal-danger">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Modification du mot de passe</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="{{ route('change.password') }}">
-                                    @csrf
-
-                                    <div class="form-group has-feedback">
-                                        <input type="password" placeholder="Mot de passe actuel" id="current_password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" required autocomplete="current_password">
-                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
-                                        @error('current_password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group has-feedback">
-                                        <input type="password" placeholder="Nouveau mot de passe" id="new_password" class="form-control @error('password') is-invalid @enderror" name="new_password" required>
-                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
-                                        @error('new_password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group has-feedback">
-                                        <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control" name="confirm_password" required>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                    <button type="submit" class="btn btn-success">Modifier</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

@@ -16,12 +16,12 @@ Login
         <form action="{{ route('login') }}" method="post">
             @csrf
             <div class="form-group has-feedback">
-                <input type="tel" placeholder="6xxxxxxxx" id="email" pattern="[0-9]{9}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input type="tel" placeholder="Téléphone" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
 
                 @error('email')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong style="color: red">{{ $message }}</strong>
                     </span>
                 @enderror
             </div>
@@ -31,7 +31,7 @@ Login
 
                 @error('password')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong style="color: red">{{ $message }}</strong>
                     </span>
                 @enderror
             </div>

@@ -45,12 +45,12 @@ class MessageController extends Controller
 
         $message->save();
 
-        if($message){
-            $errors = "Error message!";
-            return redirect()->back()->withErrors($errors);
-        }else{
-            return redirect()->back();
-        }
+        $notification = array(
+            'message' => 'Message envoyé !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -100,11 +100,11 @@ class MessageController extends Controller
 
         $message->delete();
 
-        if(!$message){
-            $errors = "Error message!";
-            return redirect()->back()->withErrors($errors);
-        }else{
-            return redirect()->back();
-        }
+        $notification = array(
+            'message' => 'Suppression réussie !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->withErrors($notification);
     }
 }

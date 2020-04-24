@@ -34,13 +34,17 @@ class MembreController extends Controller
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => ['required'],
             'confirm_password' => ['same:new_password'],
-        ]);
-
-        $messages = ['confirm_password.same' => 'Ne correspond pas au nouveau mot de passe',];
+        ],
+        ['confirm_password.same' => 'Ne correspond pas au nouveau mot de passe',]);
    
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
-        dd('Password change successfully.');
+
+        $notification = array(
+            'message' => 'Mot de passe modifié !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -81,7 +85,12 @@ class MembreController extends Controller
         $compte->Solde = 0;
         $compte->save();
 
-        return redirect('/admin/membres');
+        $notification = array(
+            'message' => 'Membre ajouté avec succès !',
+            'alert-type' => 'success'
+        );
+
+        return redirect('/admin/membres')->with($notification);
     }
 
     public function showProfile($id)
@@ -167,12 +176,12 @@ class MembreController extends Controller
         }
         $user->save();
 
-        if($user){
-            $errors = "Modification réussie !";
-            return redirect()->back()->withErrors($errors);
-        }else{
-            return redirect()->back();
-        }
+        $notification = array(
+            'message' => 'Modification réussie !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -192,12 +201,12 @@ class MembreController extends Controller
         $usercompte = Compte::where('UserId', $id)->first();
         $usercompte->Solde = 0;
 
-        if(!$user){
-            $errors = "Membre supprimé !";
-            return redirect()->back()->withErrors($errors);
-        }else{
-            return redirect()->back();
-        }
+        $notification = array(
+            'message' => 'Suppression réussie !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
 
     }
 }

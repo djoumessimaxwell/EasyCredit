@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <label>Téléphone :</label>
 
-                                        <input type="tel" name="email" class="form-control" placeholder="Numéro de téléphone" pattern="[0-9]{9}">
+                                        <input type="tel" name="email" class="form-control" placeholder="Numéro de téléphone">
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail :</label>

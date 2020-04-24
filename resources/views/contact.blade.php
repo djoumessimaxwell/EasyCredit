@@ -36,7 +36,7 @@
                         <h3 class="box-title">Commentaires & Suggestions</h3>
                     </div>
                     <div class="box-body">
-                        <form action="/admin/message/create" method="post">
+                        <form action="/send-message" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Objet :</label>

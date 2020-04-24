@@ -19,6 +19,7 @@ Route::middleware('auth')->group( function() {
 	Route::get('/documentation', 'HomeController@showDoc');
 	Route::get('/contact', 'HomeController@contact');
 	Route::get('/profile/{id}', 'MembreController@showProfile');
+	Route::post('/admin/membre/update/{id}', 'MembreController@update');
 	Route::post('/change-password', 'MembreController@passwordChange')->name('change.password');
 
 	Route::get('/admin/messages', ['uses'=>'MessageController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
@@ -29,7 +30,6 @@ Route::middleware('auth')->group( function() {
 	Route::get('/admin/membres/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::post('/admin/membre/create', ['uses'=>'MembreController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::get('/admin/membres/edit/{id}', ['uses'=>'MembreController@edit','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
-	Route::post('/admin/membre/update/{id}', ['uses'=>'MembreController@update','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::delete('/admin/membre/delete/{id}', ['uses'=>'MembreController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 
 	Route::get('/admin/transactions', ['uses'=>'TransactionController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);

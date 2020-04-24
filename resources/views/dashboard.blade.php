@@ -173,7 +173,8 @@
           'lengthChange': false,
           'searching'   : false,
           'ordering'    : false,
-          'info'        : false,
+          'info'        : true,
+          'scrollX'     : true,
           'autoWidth'   : false
         })
       })

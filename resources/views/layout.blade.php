@@ -52,6 +52,8 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap3-wysihtml5.min.css') }}">
 
         <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.min.css') }}">
+        <!-- Popup alert -->
+        <link rel="stylesheet" href="{{ URL::asset('css/toast.css') }}">
 
         <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script async src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
@@ -92,6 +94,29 @@
                 }
             });
         </script>
+        <script src="{{ URL::asset('js/toast.js') }}"></script>
+        <script src="{{ URL::asset('js/toast1.js') }}"></script>
+        <script>
+            @if(Session::has('message'))
+                var type="{{Session::get('alert-type','info')}}"
+
+                switch(type){
+                    case 'info':
+                         toastr.info("{{ Session::get('message') }}");
+                         break;
+                    case 'success':
+                        toastr.success("{{ Session::get('message') }}");
+                        break;
+                    case 'warning':
+                        toastr.warning("{{ Session::get('message') }}");
+                        break;
+                    case 'error':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                }
+            @endif
+        </script>
+
         <!-- Bootstrap 3.3.7 -->
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <!-- Morris.js charts -->

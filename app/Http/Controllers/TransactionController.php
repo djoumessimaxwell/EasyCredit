@@ -59,7 +59,12 @@ class TransactionController extends Controller
 
         $compte->save();
 
-        return redirect('/admin/transactions');
+        $notification = array(
+            'message' => 'Transaction ajoutée avec succès !',
+            'alert-type' => 'success'
+        );
+
+        return redirect('/admin/transactions')->with($notification);
     }
 
     /**
@@ -135,12 +140,12 @@ class TransactionController extends Controller
 
         $compte->save();
 
-        if($compte){
-            $errors = "Modification réussie !";
-            return redirect()->back()->withErrors($errors);
-        }else{
-            return redirect()->back();
-        }
+        $notification = array(
+            'message' => 'Modification réussie !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -166,11 +171,11 @@ class TransactionController extends Controller
 
         $trans->delete();
 
-        if(!$trans){
-            $errors = "Transaction supprimée !";
-            return redirect()->back()->withErrors($errors);
-        }else{
-            return redirect()->back();
-        }
+        $notification = array(
+            'message' => 'Suppression réussie !',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 }

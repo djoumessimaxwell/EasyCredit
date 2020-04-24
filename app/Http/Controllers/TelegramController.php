@@ -33,10 +33,10 @@ class TelegramController extends Controller
             'message' => 'required',
         ]);
 
-        $text = "A new message\n"."<b>Subject: </b>\n"."$request->subject\n"."<b>Message: </b>\n".$request->message;
+        $text = "Nouveau message de la part de " . auth()->user()->fullname . "\n"."<b>Objet: </b>\n"."$request->subject\n"."<b>Message: </b>\n".$request->message;
 
         Telegram::sendMessage([
-            'chat_id' => env('TELEGRAM_CHANNEL_ID', '295955164'),
+            'chat_id' => env('TELEGRAM_CHANNEL_ID', '-1001205832272'),
             'parse_mode' => 'HTML',
             'text' => $text
         ]);
