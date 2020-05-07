@@ -71,7 +71,7 @@
                                     <label class="col-sm-2 control-label">Prénom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" value="{{ Auth::user()->lastname }}" name="lastname" class="form-control" placeholder="Entrer le nom">
+                                        <input type="text" value="{{ Auth::user()->lastname }}" name="lastname" class="form-control" placeholder="Entrer le prénom">
                                     </div>
                                 </div>
                                 <div class="form-group">

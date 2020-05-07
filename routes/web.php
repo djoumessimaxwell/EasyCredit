@@ -27,9 +27,9 @@ Route::middleware('auth')->group( function() {
 	Route::delete('/admin/message/delete/{id}', ['uses'=>'MessageController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 
 	Route::get('/admin/membres', ['uses'=>'MembreController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
-	Route::get('/admin/membres/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::get('/admin/membre/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::post('/admin/membre/create', ['uses'=>'MembreController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
-	Route::get('/admin/membres/edit/{id}', ['uses'=>'MembreController@edit','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::get('/admin/membre/edit/{id}', ['uses'=>'MembreController@edit','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::delete('/admin/membre/delete/{id}', ['uses'=>'MembreController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 
 	Route::get('/admin/transactions', ['uses'=>'TransactionController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);

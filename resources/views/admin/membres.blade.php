@@ -43,7 +43,6 @@
                                     <th>Statut</th>
                                     <th>Nom</th>
                                     <th>Téléphone</th>
-                                    <th>E-mail</th>
                                     <th>Solde</th>
                                     <th>Date d'adhésion</th>
                                     <th>Role</th>
@@ -63,7 +62,6 @@
                                     </td>
                                     <td>{{$user->fullname}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td>{{$user->phone}}</td>
                                     @foreach($soldes as $solde)
                                         @if($solde->UserId == $user->id)
                                             <td> <strong> {{$solde->Solde}} </strong></td>
@@ -86,8 +84,7 @@
                                     <td>
                                         <center>
                                             <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->fullname}}" data-url="/admin/membre/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button type="button" data-id="{{$user->id}}" data-toggle="modal" data-target="#modal-success" title="modifier" class="update"><i class="fa fa-edit" style="color:blue;"> </i></button>
-                                            <button type="button" class="view" data-toggle="modal" data-target="#modal-info" data-id="{{$user->id}}" data-name="{{$user->fullname}}"><i class="fa fa-eye" style="color:blue;" title="visualiser"> </i></button>
+                                            <button type="button" title="modifier" class="update"><a href="/admin/membre/edit/{{$user->id}}"><i class="fa fa-edit" style="color:blue;"> </i></a></button>
                                         </center>
                                     </td>
 
@@ -159,53 +156,6 @@
                                     <button type="submit" class="btn btn-primary">Valider</button>
                                 </div>
                             </form>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-                <div class="modal modal-default fade" id="modal-info">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Toutes les transactions de <small></small></h4>
-                            </div>
-                            <div class="modal-body">
-                                <table id="example2" class="table table-bordered table-striped">
-                                  <thead>
-                                  </thead>
-
-                                  <tbody>
-                                    @foreach($trans as $tran)
-                                      <tr>
-                                        <td>
-                                          <!-- drag handle -->
-                                          <span>
-                                            <i class="fa fa-ellipsis-v"></i>
-                                            <i class="fa fa-ellipsis-v"></i>
-                                          </span>
-                                          <!-- todo text -->
-                                          @if($tran->Type == "Dépôt")
-                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Dépôt de {{ $tran->Amount }} FCFA</span>
-                                          @elseif($tran->Type == "Retrait")
-                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Retrait de {{ $tran->Amount }} FCFA</span>
-                                          @elseif($tran->Type == "Virement")
-                                            <span class="text"> {{ $tran->created_at->toFormattedDateString() }}  :  Virement de {{ $tran->Amount }} FCFA vers </span>
-                                          @endif
-                                        </td>
-                                      </tr>
-                                    @endforeach
-                                  </tbody>
-
-                                  <tfoot>
-                                  </tfoot>
-
-                              </table>
-                            </div>
                         </div>
                         <!-- /.modal-content -->
                     </div>

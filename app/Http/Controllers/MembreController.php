@@ -126,19 +126,12 @@ class MembreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
-        $id = $request->input('id');
-        $users = User::find($id);
-        $output = array(
-            'firstname' => $users->firstname,
-            'lastname' => $users->lastname,
-            'tel' => $users->phone,
-            'email' => $users->email,
-            'role' => $users->role,
-            'date' => $users->created_at->toFormattedDateString()
-        );
-        echo json_encode($output);
+        $user = User::find($id);
+        $trans = Transaction::All()->where('UserId', $id);
+        $solde = Compte::where('UserId', $id)->first();
+        return view('admin/update_membre', compact('user', 'trans','solde'));
     }
 
     /**

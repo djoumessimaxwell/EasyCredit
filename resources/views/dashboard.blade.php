@@ -86,7 +86,7 @@
           <!-- Main row -->
           <div class="row">
             <!-- Left col -->
-            <section class="col-lg-6 connectedSortable">
+            <section class="col-lg-12">
               
               <!-- TO DO List -->
               <div class="box box-danger">
@@ -96,29 +96,66 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example2" class="table table-bordered table-striped">
-                      <thead>
-                      </thead>
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr class="bg-info">
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Transaction</th>
+                        <th>Débit</th>
+                        <th>Crédit</th>
+                        <th>Solde</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($trans as $tran)
+                        <tr>
+                          <td>{{$tran->id}}</td>
+                          <td>{{$tran->created_at->toFormattedDateString()}}</td>
+                          <td>
+                            @if($tran->Type == "Dépôt")
+                              <span class="text"><strong> Dépôt </strong></span>
+                            @elseif($tran->Type == "Retrait")
+                              <span class="text"><strong> Retrait </strong></span>
+                            @elseif($tran->Type == "Virement")
+                              <span class="text"><strong> Virement </strong></span>
+                            @endif
+                          </td>
+                          <td>
+                            @if($tran->Type == "Dépôt")
+                              <span class="text"><strong> 0 </strong></span>
+                            @elseif($tran->Type == "Retrait")
+                              <span class="text"><strong> {{$tran->Amount}} </strong></span>
+                            @endif
+                          </td>
+                          <td>
+                            @if($tran->Type == "Dépôt")
+                              <span class="text"><strong> {{$tran->Amount}} </strong></span>
+                            @elseif($tran->Type == "Retrait")
+                              <span class="text"><strong> 0 </strong></span>
+                            @endif
+                          </td>
+                          <td>
+                            @if($tran->Type == "Dépôt")
+                              <span class="text"> {{$tran->Amount}} </span>
+                            @elseif($tran->Type == "Retrait")
+                              <span class="text" style="color: red"> -{{$tran->Amount}} </span>
+                            @endif
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
 
-                      <tbody>
-                        @foreach($trans as $tran)
-                          <tr class="bg-info">
-                            <td>
-                              <!-- todo text -->
-                              @if($tran->Type == "Dépôt")
-                                <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }} </strong> :  Dépôt de {{ $tran->Amount }} FCFA</span>
-                              @elseif($tran->Type == "Retrait")
-                                <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }}  :  Retrait de {{ $tran->Amount }} FCFA</span>
-                              @elseif($tran->Type == "Virement")
-                                <span class="text"><strong> {{ $tran->created_at->toFormattedDateString() }}  :  Virement de {{ $tran->Amount }} FCFA vers </span>
-                              @endif
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-
-                      <tfoot>
-                      </tfoot>
+                    <tfoot>
+                      <tr bgcolor="#b4b6ba">
+                        <td></td>
+                        <td></td>
+                        <td><strong>Total des opérations</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>{{ $solde->Solde }}</strong></td>
+                      </tr>
+                    </tfoot>
 
                   </table>
                 </div>
@@ -129,7 +166,7 @@
             </section>
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            <section class="col-lg-6 connectedSortable">
+            <section class="col-lg-12 connectedSortable">
 
               <div class="box box-success">
                 <div class="box-header">
