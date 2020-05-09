@@ -99,32 +99,39 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Role</label>
 
-                                    <div class="col-sm-7">
-                                        <select class="form-control select2" name="role" style="width: 100%;">
-                                            <option value="3">Membre</option>
-                                            <option value="2">Personnel</option>
-                                            <option value="1">Admin</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        @if( $user->hasRole('Admin') )Administrateur
-                                        @elseif( $user->hasRole('Membre') )Membre
-                                        @elseif( $user->hasRole('Personnel'))Personnel
+                                    <div class="col-sm-10">
+                                        @if( $user->hasRole('Admin') )
+                                            <select class="form-control select2" name="role" style="width: 100%;">
+                                                <option value="3">Membre</option>
+                                                <option value="2">Personnel</option>
+                                                <option value="1" selected>Admin</option>
+                                            </select>
+                                        @elseif( $user->hasRole('Membre') )
+                                            <select class="form-control select2" name="role" style="width: 100%;">
+                                                <option value="3" selected>Membre</option>
+                                                <option value="2">Personnel</option>
+                                                <option value="1">Admin</option>
+                                            </select>
+                                        @elseif( $user->hasRole('Personnel'))
+                                            <select class="form-control select2" name="role" style="width: 100%;">
+                                                <option value="3">Membre</option>
+                                                <option value="2" selected>Personnel</option>
+                                                <option value="1">Admin</option>
+                                            </select>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Date d'adhésion</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" name="date" class="form-control pull-right" id="datepicker">
+                                            <input type="text" value="{{ $user->created_at->toFormattedDateString() }}" name="date" class="form-control pull-right" id="datepicker">
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">{{ $user->created_at->toFormattedDateString() }}</div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">

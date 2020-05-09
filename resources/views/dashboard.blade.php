@@ -96,7 +96,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="example1" class="table table-bordered table-striped" style="width: 100%">
                     <thead>
                       <tr class="bg-info">
                         <th>#</th>
@@ -204,7 +204,8 @@
             $('select').removeAttr('disabled');
         });
 
-        $('#example1').DataTable()
+        $('#example1').DataTable({
+          'scrollX'     : true})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,
