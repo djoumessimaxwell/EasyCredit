@@ -1,11 +1,5 @@
 
 $(document).ready(function(){
-    $(".sidebar a").each(function() {
-        //console.log($(this).attr('href'));
-        if ((window.location.pathname.indexOf($(this).attr('href'))) > -1) {
-            $(this).parent().addClass('active');
-        }
-    });
 
 	var id = $(this).data('id');
     var Name = $(this).data('name');
@@ -14,82 +8,25 @@ $(document).ready(function(){
     var oVol = $("#volbtn").clone(true);
 	var oReserve = $("#reservebtn").clone(true);
 
-    $("#edit-vol").click(function(){
+    $("#simuler").click(function(){
+        var result = {};
+        var montant = $('input #montant').value();
+        var durée = $('input #durée').value();
+        var somme = $('input #somme').value();
+        var all = $('<div>',{class: 'row'});
+        var score = $('<div>',{id: 'question',class: 'col-md-8'});
+        var level = $('<div>',{class: 'col-md-4'});
 
-        $("#volForm").slideToggle();
-        $("#update-vol").show()
-        $("#save-vol").hide();
-        $("#reserveForm").hide();
-        $('#volForm').removeAttr('action');
-        $('#volForm').removeAttr('method');
+        var numCorrect = 0;
 
-        $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function(){
-        	return $(this).text();
-        }).get();
-
-        $('#nom').val(data[1]);
-        $('#AeroportD').val(data[2]);
-        $('#AeroportA').val(data[3]);
-        $('#dateD').val(data[4]);
-        $('#heureD').val(data[5]);
-        $('#dateA').val(data[6]);
-        $('#heureA').val(data[7]);
-        $('#escale').val(data[8]);
-    });
-
-    $("#edit-reserve").click(function(){
-
-        $("#reserveForm").slideToggle();
-        $("#update-reserve").show();
-        $("#save-reserve").hide();
-        $("#volForm").hide();
-        $('#reserveForm').removeAttr('action');
-        $('#reserveForm').removeAttr('method');
-
-        $tr = $(this).closest('tr');
-        var data = $tr.children("td").map(function(){
-        	return $(this).text();
-        }).get();
-
-        $('#numero').val(data[1]);
-        $('#date').val(data[3]);
-        $('#vol').val(data[2]);
-        $('#passager').val(data[4]);
-    });
-
-    $("#update-vol").click(function(){
-
-        $.ajax({
-        	type: "PUT",
-        	url: "/vol/update/" + id,
-        	data: $('#volForm').serialize(),
-        	success: function(response){
-        		$('#volForm').hide();
-        		window.location.reload();
-        	},
-        	error: function(error){
-        		console.log(error);
-        	}
-        });
-
-    });
-
-    $("#update-reserve").click(function(){
-
-        $.ajax({
-        	type: "PUT",
-        	url: "/reservation/update/" + id,
-        	data: $('#reserveForm').serialize(),
-        	success: function(response){
-        		$('#reserveForm').hide();
-        		window.location.reload();
-        	},
-        	error: function(error){
-        		console.log(error);
-        	}
-        });
-
+        if(durée != ''){
+            somme = (montant*(2/100))/(1-(1+(2/100))^(-durée));
+        }
+        else if(somme != ''){
+            durée = -(Math.log(1-((montant*2/100)/somme))/Math.log(1+(2/100)));
+        }
+        console.log(somme , durée)
+        document.write("somme = " + somme + "durée = " + durée);
     });
 
     $(".delete").click(function(){

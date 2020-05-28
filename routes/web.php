@@ -16,6 +16,7 @@ Route::middleware('auth')->group( function() {
 
 	Route::get('/', 'HomeController@index');
 	Route::get('/credit', 'CompteController@show');
+	Route::post('/credit/simulation', 'CompteController@simuler');
 	Route::get('/documentation', 'HomeController@showDoc');
 	Route::get('/contact', 'HomeController@contact');
 	Route::get('/profile/{id}', 'MembreController@showProfile');

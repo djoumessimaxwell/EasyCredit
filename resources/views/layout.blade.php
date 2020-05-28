@@ -50,8 +50,6 @@
         <link rel="stylesheet" href="{{ URL::asset('css/dataTables.bootstrap.min.css') }}">
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap3-wysihtml5.min.css') }}">
-
-        <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.min.css') }}">
         <!-- Popup alert -->
         <link rel="stylesheet" href="{{ URL::asset('css/toast.css') }}">
 
