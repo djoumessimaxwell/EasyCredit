@@ -21,75 +21,87 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-danger">
-                    <div class="box-header">
-                        <h3 class="box-title">Simuler l'étalement du Crédit</h3>
-                    </div>
-                    <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="form-group col-md-4">
-                                <label>Crédit sollicité :</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                                    <input type="number" class="form-control" name="montant" id="montant" placeholder="Montant">
-                                </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="box-header">
+                                <h3 class="box-title">Simuler le Crédit</h3>
                             </div>
-                            <div class="form-group col-md-8">
-                                <label>Recouvrement sur :</label>
-                                <div style="display: flex;">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>Montant du Crédit sollicité :</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                        <input type="number" class="form-control" name="montant" id="montant" placeholder="Montant">
+                                        <span class="input-group-addon"><strong>XAF</strong></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Recouvrement sur :</label>
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                             <button onclick="document.getElementById('somme').value = ''" class="btn btn-default" id="type1">Durée mensuelle</button>
                                         </div>
                                         <!-- /btn-group -->
                                         <input type="number" class="form-control durée" id="durée" name="durée" style="display: none;" placeholder="Entrer la durée">
+                                        <span class="input-group-addon"><strong>mois</strong></span>
                                     </div>
-
+                                    ou<br>
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button onclick="document.getElementById('durée').value = ''" class="btn btn-default" id="type2">Somme mensulle</button>
+                                            <button onclick="document.getElementById('durée').value = ''" class="btn btn-default" id="type2">Somme mensuelle</button>
                                         </div>
                                         <!-- /btn-group -->
                                         <input type="number" class="form-control somme" style="display: none;" id="somme" name="somme" placeholder="Entrer la somme">
+                                        <span class="input-group-addon"><strong>XAF</strong></span>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <button type="submit" id="simuler" class="pull-right btn btn-success">Visualiser</button>
+                                </div>
                             </div>
-                            
-                            <button type="submit" id="simuler" class="pull-right btn btn-success">Visualiser</button>
                         </div>
+
+                        <div class="col-md-8">
+                            <div class="box-header">
+                                <h3 class="box-title">Tableau d'amortissement de la Dette</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-bordered" id="tab">
+                                    <thead>
+                                        <tr class="bg-info">
+                                            <th>N°</th>
+                                            <th>Date de l'échéance</th>
+                                            <th>Capital restant à amortir</th>
+                                            <th>Intérêts courus (HT)</th>
+                                            <th>Amortissement du capital</th>
+                                            <th>TVA</th>
+                                            <th>Mensualité TTC</th>
+                                            <th>Capital restant dû</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr bgcolor="#b4b6ba">
+                                            <th></th>
+                                            <th><strong>Total</strong></th>
+                                            <th></th>
+                                            <th><strong></strong></th>
+                                            <th><strong></strong></th>
+                                            <th><strong>0</strong></th>
+                                            <th><strong></strong></th>
+                                            <th><strong>0</strong></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <h3 class="box-title">Tableau d'amortissement de la Dette</h3>
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-bordered" id="tab">
-                                <thead>
-                                    <tr class="bg-info">
-                                        <th>N°</th>
-                                        <th>Date de l'échéance</th>
-                                        <th>Capital restant à amortir</th>
-                                        <th>Intérêts courus (HT)</th>
-                                        <th>Amortissement du capital</th>
-                                        <th>TVA</th>
-                                        <th>Mensualité TTC</th>
-                                        <th>Capital restant dû</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                    <tr bgcolor="#b4b6ba">
-                                        <th></th>
-                                        <th><strong>Total</strong></th>
-                                        <th></th>
-                                        <th><strong></strong></th>
-                                        <th><strong></strong></th>
-                                        <th><strong>0</strong></th>
-                                        <th><strong></strong></th>
-                                        <th><strong>0</strong></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
                         <strong>NB*</strong> : La somme marquée en <span style="color: red">rouge</span> dans le tableau, à hauteur de <strong id="x"></strong>, devra :<br>
                         - Etre remboursée au créancier, si elle est négative.<br>
                         - Etre payée par le créancier, si elle est positive.
