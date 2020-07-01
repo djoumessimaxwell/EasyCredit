@@ -136,10 +136,10 @@
 
                 if(durée != ''){
                     somme = (montant*(2/100))/(1-(Math.pow((1+(2/100)),(-durée))));
-                    somme = Math.ceil(somme/100)*100;
+                    somme = Math.round(somme);
                 }
                 else if(somme != ''){
-                    durée = Math.ceil(-(Math.log(1-((montant*2/100)/somme))/Math.log(1+(2/100))));
+                    durée = Math.round(-(Math.log(1-((montant*2/100)/somme))/Math.log(1+(2/100))));
                 }
                 reste = montant;
                 html = tab[0];
@@ -151,7 +151,7 @@
 
                     montant = reste;
                     intérêt = reste*(2/100);
-                    intérêt = Math.ceil(intérêt/100)*100;
+                    intérêt = Math.round(intérêt);
                     amort = somme - intérêt;
                     reste = reste - amort;
                     j = i+1;
