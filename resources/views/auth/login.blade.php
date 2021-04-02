@@ -1,17 +1,13 @@
 
 @extends('layouts.app')
 @section('title')
-Login
+Authentification
 @endsection
 
 @section('content')
 <div class="login-box">
-    <div class="login-logo">
-        <a href="/">  <img  src="{{ URL::asset('img/logo2.jpg') }}" alt="logo du CTI"> </a>
-    </div>
-    <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Authentification</p>
+        <div class="login-logo"><img  src="{{ URL::asset('img/logo2.png') }}" alt="logo Netnoh"></div>
 
         <form action="{{ route('login') }}" method="post">
             @csrf
@@ -46,12 +42,9 @@ Login
             </div>
         </form>
 
-        <!-- /.social-auth-links -->
-        @if (Route::has('password.request'))
-            <a class="btn btn-link" href="{{ route('password.request') }}">
-                Vous avez oublié votre mot de passe?
-            </a>
-        @endif
+        <!-- /.register-links -->
+        <h5>Pas encore client?
+        <b><a class="nav-lin" href="{{ route('register') }}">Devenir client</a></b></h5>
 
     </div>
     <!-- /.login-box-body -->

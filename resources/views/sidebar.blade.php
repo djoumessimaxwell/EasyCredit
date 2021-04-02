@@ -23,7 +23,7 @@
         <li class="sidebar">
           <a href="/contact">
             <i class="fa fa-phone"></i>
-            <span>Contact</span>
+            <span>Nous contacter</span>
           </a>
         </li>
 

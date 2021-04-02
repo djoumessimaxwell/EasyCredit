@@ -27,12 +27,12 @@
                 </div>
                 @endif
             </div>
+
             <div class="col-lg-6">
                 <!-- quick email widget -->
                 <div class="box box-success">
                     <div class="box-header">
                         <i class="fa fa-envelope"></i>
-
                         <h3 class="box-title">Commentaires & Suggestions</h3>
                     </div>
                     <div class="box-body">
@@ -47,10 +47,10 @@
                                 <textarea class="form-control" name="message" placeholder="Message" style="width: 100%; height: 125px;font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                             </div>
                     </div>
-                    <div class="box-footer clearfix">
-                        <button type="submit" class="pull-right btn btn-success">Envoyer
-                        <i class="fa fa-arrow-circle-right"></i></button>
-                    </div>
+                            <div class="box-footer clearfix">
+                                <button type="submit" class="pull-right btn btn-success">Envoyer
+                                <i class="fa fa-arrow-circle-right"></i></button>
+                            </div>
                         </form>
                 </div>
                 <!-- /.box -->

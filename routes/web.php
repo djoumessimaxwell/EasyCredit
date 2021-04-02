@@ -30,6 +30,7 @@ Route::middleware('auth')->group( function() {
 	Route::get('/admin/membres', ['uses'=>'MembreController@showAll','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::get('/admin/membre/profil/{id}', ['uses'=>'MembreController@showProfileById','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::post('/admin/membre/create', ['uses'=>'MembreController@store','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
+	Route::post('/admin/membre/create_ent', ['uses'=>'MembreController@store_ent','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::get('/admin/membre/edit/{id}', ['uses'=>'MembreController@edit','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 	Route::delete('/admin/membre/delete/{id}', ['uses'=>'MembreController@destroy','middleware'=>'roles', 'roles'=>['Admin','Personnel']]);
 

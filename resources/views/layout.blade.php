@@ -3,6 +3,11 @@
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131755597-1"></script>
+        <link rel="icon" href="{{ URL::asset('favicon-16x16.png') }}" sizes="16x16" type="image/png"/>
+        <link rel="icon" href="{{ URL::asset('favicon-32x32.png') }}" sizes="32x32" type="image/png"/>
+        <link rel="apple-touch-icon" href="{{ URL::asset('apple-touch-icon.png') }}" sizes="180x180"/>
+        <link rel="manifest" href="{{ URL::asset('site.webmanifest') }}">
+        <link rel="shortcut icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon"/>
 
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -16,11 +21,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <meta name="author" content="semanticatech.com - London, Yaoundé, Douala Bonamoussadi">
+        <meta name="author" content="netnoh.com - Douala Deïdo">
         @yield('meta')
 
         <title>
-            EasyCredit - @yield('title')
+            Netnoh - @yield('title')
         </title>
 
         <!-- Fonts -->
@@ -64,11 +69,6 @@
         <div class="wrapper">
 
         @include('header')
-
-        @if(1===0)
-            @include('Inc.mobile-nav')
-            @include('Inc.cti-navbar')
-        @endif
 
         @include('sidebar')
 

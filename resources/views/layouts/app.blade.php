@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ URL::asset('favicon-16x16.png') }}" sizes="16x16" type="image/png"/>
+    <link rel="icon" href="{{ URL::asset('favicon-32x32.png') }}" sizes="32x32" type="image/png"/>
+    <link rel="apple-touch-icon" href="{{ URL::asset('apple-touch-icon.png') }}" sizes="180x180"/>
+    <link rel="manifest" href="{{ URL::asset('site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon"/>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>EasyCredit - @yield('title')</title>
+    <title>Netnoh - @yield('title')</title>
 
     <!-- Scripts -->
     
@@ -23,24 +28,15 @@
     <link rel="stylesheet" href="{{ URL::asset('css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/blue.css') }}">
 </head>
-<body class="hold-transition login-page">
+  <body class="hold-transition login-page">
 
-    
-    @yield('content')
-    
-    <!-- jQuery 3 -->
-    <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
-    <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-    <!-- iCheck -->
-    <script src="{{ URL::asset('js/icheck.min.js') }}"></script>
-    <script>
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
-    </script>
-</body>
+      
+      @yield('content')
+      
+      <!-- jQuery 3 -->
+      <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
+      <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+      <!-- iCheck -->
+      <script src="{{ URL::asset('js/icheck.min.js') }}"></script>
+  </body>
 </html>

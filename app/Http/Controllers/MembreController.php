@@ -60,33 +60,78 @@ class MembreController extends Controller
         $user->firstname = request('firstname');
         $user->lastname = request('lastname');
         $user->email = request('email');
-        $user->password = Hash::make('easycredit');
+        $user->password = Hash::make(request('password'));
         $user->phone = request('phone');
-        $date = request('date');
-        $user->created_at = strtotime($date);
+        $user->CNI_number = request('CNI_number');
+        $date = request('CNI_date');
+        $user->CNI_date = strtotime($date);
+        $user->CNI_place = request('CNI_place');
+        $user->job = request('job');
+        $user->toContact_name = request('toContact_name');
+        $user->toContact_phone = request('toContact_phone');
+        $date1 = Carbon::now();
+        $user->created_at = strtotime($date1);
         $user->save();
 
-        if(request('role') == 3) {
-            $user->roles()->attach(Role::where('name','Membre')->first());
-        }
-
-        if(request('role') == 2) {
-            $user->roles()->attach(Role::where('name','Personnel')->first());
-        }
-
-        if(request('role') == 1) {
-            $user->roles()->attach(Role::where('name','Admin')->first());
-        }
+        $user->roles()->attach(Role::where('name','Membre')->first());
+        $user->guichets()->attach(Guichet::where('name','Carrefour Maçon')->first());
 
         $user->save();
 
         $compte = new Compte;
         $compte->UserId = $user->id;
+        $compte->Account_number = 00001;
+        $compte->ProductId = 1;
         $compte->Solde = 0;
         $compte->save();
 
         $notification = array(
-            'message' => 'Membre ajouté avec succès !',
+            'message' => 'Votre compte a été créé avec succès !',
+            'alert-type' => 'success'
+        );
+
+        return redirect('/admin/membres')->with($notification);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_ent(Request $request)
+    {
+        $user = new Client_ent;
+
+        $user->Raison_sociale = request('raison_sociale');
+        $user->Forme_juridique = request('forme_juridique');
+        $user->email = request('email');
+        $user->password = Hash::make(request('password'));
+        $user->phone = request('phone');
+        $user->Numero_contribuable = request('num_contribuable');
+        $date = request('NC_date');
+        $user->NC_date = strtotime($date);
+        $user->Siege = request('siège');
+        $user->Activité = request('activité');
+        $user->SiteWeb = request('siteWeb');
+        $date1 = Carbon::now();
+        $user->created_at = strtotime($date1);
+        $user->save();
+
+        $user->roles()->attach(Role::where('name','Membre')->first());
+        $user->guichets()->attach(Guichet::where('name','Carrefour Maçon')->first());
+
+        $user->save();
+
+        $compte = new Compte;
+        $compte->Client_entId = $user->id;
+        $compte->Account_number = 00001;
+        $compte->ProductId = 1;
+        $compte->Solde = 0;
+        $compte->save();
+
+        $notification = array(
+            'message' => 'Votre compte a été créé avec succès !',
             'alert-type' => 'success'
         );
 

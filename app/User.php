@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname','lastname', 'email','phone', 'password', 'is_deleted'
+        'firstname','lastname', 'email','phone', 'password', 'is_deleted', 'CNI_number', 
+        'CNI_date', 'CNI_place', 'job', 'toContact_name', 'toContact_phone'
     ];
 
     /**
@@ -41,8 +42,39 @@ class User extends Authenticatable
         return $this->hasOne(Transaction::class);
     }
 
+    public function compte(){
+        return $this->hasOne(Compte::class);
+    }
+
+    public function guichets(){
+        return $this->belongsToMany('App\Guichet', 'user_guichet', 'GuichetId', 'UserId', 
+        'Client_entId', 'MarchandId');
+    }
+
+    public function hasAnyGuichet($guichets) {
+        if (is_array($guichets)) {
+            foreach($guichets as $guichet) {
+                if ($this->hasGuichet($guichet)){
+                    return true;
+                }
+            }
+        } else {
+            if ($this->hasGuichet($guichets)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasGuichet($guichet) {
+        if ($this->guichets()->where('name',$guichet)->first()){
+            return true;
+        }
+        return false;
+    }
+
     public function roles(){
-        return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'role_id');
+        return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'client_entId', 'role_id');
     }
 
     public function hasAnyRole($roles) {
