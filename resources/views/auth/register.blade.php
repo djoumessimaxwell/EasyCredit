@@ -134,7 +134,7 @@ Création compte
                         </div>
 
                         <div class="form-group">
-                            <label>Mot de passe :</label>
+                            <label>Mot de passe<i style="color:#FF0000">*</i> :</label>
                             <input type="password" placeholder="Nouveau mot de passe" id="new_password" class="form-control @error('new_password') is-invalid @enderror" name="password" required>
                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
@@ -146,7 +146,7 @@ Création compte
                         </div>
 
                         <div class="form-group">
-                            <label>Confirmer votre Mot de passe :</label>
+                            <label>Confirmer votre Mot de passe<i style="color:#FF0000">*</i> :</label>
                             <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" required>
 
                             @error('confirm_password')
@@ -242,7 +242,7 @@ Création compte
                         </div>
 
                         <div class="form-group">
-                            <label>Mot de passe :</label>
+                            <label>Mot de passe<i style="color:#FF0000">*</i> :</label>
                             <input type="password" placeholder="Nouveau mot de passe" id="new_password" class="form-control @error('new_password') is-invalid @enderror" name="password" required>
                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
@@ -254,7 +254,7 @@ Création compte
                         </div>
 
                         <div class="form-group">
-                            <label>Confirmer votre Mot de passe :</label>
+                            <label>Confirmer votre Mot de passe<i style="color:#FF0000">*</i> :</label>
                             <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" required>
 
                             @error('confirm_password')

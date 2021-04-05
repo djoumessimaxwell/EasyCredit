@@ -5,6 +5,14 @@ Authentification
 @endsection
 
 @section('content')
+<div class="col-xs-12">
+    @if (count($errors))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-check"></i> {{ $errors }}</h5>
+    </div>
+    @endif
+</div>
 <div class="login-box">
     <div class="login-box-body">
         <div class="login-logo"><img  src="{{ URL::asset('img/logo2.png') }}" alt="logo Netnoh"></div>

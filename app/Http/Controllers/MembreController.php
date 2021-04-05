@@ -90,7 +90,7 @@ class MembreController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect('/admin/membres')->with($notification);
+        return redirect('/login')->with($notification);
     }
 
     /**
@@ -135,7 +135,7 @@ class MembreController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect('/admin/membres')->with($notification);
+        return redirect('/login')->with($notification);
     }
 
     public function showProfile($id)

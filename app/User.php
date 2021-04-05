@@ -47,8 +47,7 @@ class User extends Authenticatable
     }
 
     public function guichets(){
-        return $this->belongsToMany('App\Guichet', 'user_guichet', 'GuichetId', 'UserId', 
-        'Client_entId', 'MarchandId');
+        return $this->belongsToMany('App\Guichet', 'user_guichet', 'GuichetId', 'UserId', 'MarchandId');
     }
 
     public function hasAnyGuichet($guichets) {
@@ -74,7 +73,7 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'client_entId', 'role_id');
+        return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'role_id');
     }
 
     public function hasAnyRole($roles) {

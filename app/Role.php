@@ -11,7 +11,7 @@ class Role extends Model
     }
 
     public function client_ent() {
-        return $this->belongsToMany('App\Client_ent', 'user_role', 'role_id', 'user_id');
+        return $this->belongsToMany('App\Client_ent', 'user_role', 'role_id', 'client_entId');
     }
 
 }
