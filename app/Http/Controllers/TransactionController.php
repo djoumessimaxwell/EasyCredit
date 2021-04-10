@@ -81,12 +81,6 @@ class TransactionController extends Controller
         return view('admin/transactions', compact('trans','users'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Request $request)
     {
         $id = $request->input('id');
@@ -96,18 +90,10 @@ class TransactionController extends Controller
             'userId' => $trans->UserID,
             'type' => $trans->Type,
             'montant' => $trans->Amount,
-            'date' => $trans->created_at->toFormattedDateString()
         );
         echo json_encode($output);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $trans = Transaction::find($id);
@@ -177,5 +163,13 @@ class TransactionController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+
+    public function marchandOperations()
+    {
+        $trans = Transaction::All();
+        $users = User::All();
+            
+        return view('marchand/operations', compact('trans','users'));
     }
 }

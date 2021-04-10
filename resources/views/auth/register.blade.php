@@ -110,7 +110,7 @@ Création compte
                     <h4 class="modal-title">Création compte <b>Particulier</b></h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/admin/membre/create">
+                    <form method="POST" action="/membre/create">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Nom<i style="color:#FF0000">*</i> :</label>
@@ -176,6 +176,8 @@ Création compte
 
                             <input type="text" name="job" class="form-control" placeholder="Entrer votre activité" required>
                         </div>
+                        <hr>
+                        <center><label>Personne à contacter</label></center>
                         <div class="form-group">
                             <label>Nom complet :</label>
 
@@ -218,7 +220,7 @@ Création compte
                     <h4 class="modal-title">Création compte <b>Enteprise</b></h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/admin/membre/create_ent">
+                    <form method="POST" action="/membre/create_ent">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Raison sociale<i style="color:#FF0000">*</i> :</label>

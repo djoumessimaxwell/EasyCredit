@@ -27,6 +27,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ URL::asset('css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/blue.css') }}">
+    <!-- Popup alert -->
+    <link rel="stylesheet" href="{{ URL::asset('css/toast.css') }}">
 </head>
   <body class="hold-transition login-page">
 
@@ -36,6 +38,29 @@
       <!-- jQuery 3 -->
       <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
       <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+      
+      <script src="{{ URL::asset('js/toast.js') }}"></script>
+      <script src="{{ URL::asset('js/toast1.js') }}"></script>
+      <script>
+          @if(Session::has('message'))
+              var type="{{Session::get('alert-type','info')}}"
+
+              switch(type){
+                  case 'info':
+                        toastr.info("{{ Session::get('message') }}");
+                        break;
+                  case 'success':
+                      toastr.success("{{ Session::get('message') }}");
+                      break;
+                  case 'warning':
+                      toastr.warning("{{ Session::get('message') }}");
+                      break;
+                  case 'error':
+                      toastr.error("{{ Session::get('message') }}");
+                      break;
+              }
+          @endif
+      </script>
       <!-- iCheck -->
       <script src="{{ URL::asset('js/icheck.min.js') }}"></script>
   </body>

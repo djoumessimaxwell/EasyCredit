@@ -46,8 +46,12 @@ class User extends Authenticatable
         return $this->hasOne(Compte::class);
     }
 
+    public function guichet_marchand(){
+        return $this->belongsToMany('App\Guichet', 'user_guichet', 'MarchandId', 'GuichetId');
+    }
+
     public function guichets(){
-        return $this->belongsToMany('App\Guichet', 'user_guichet', 'GuichetId', 'UserId', 'MarchandId');
+        return $this->belongsToMany('App\Guichet', 'user_guichet', 'UserId', 'GuichetId');
     }
 
     public function hasAnyGuichet($guichets) {

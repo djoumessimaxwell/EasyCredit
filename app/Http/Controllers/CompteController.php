@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Compte;
+use App\User;
+use App\Transaction;
+use App\Produit;
 use Illuminate\Http\Request;
 
 class CompteController extends Controller
@@ -45,6 +48,17 @@ class CompteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Compte $compte)
+    {
+        $membres = User::All()->count();
+        $fond = Compte::get()->sum("Solde");
+        $solde = Compte::where('UserId', auth()->user()->id)->first();
+        $produit = Produit::where('id', $solde->ProductId)->first();
+        $trans = Transaction::All()->where('UserId', auth()->user()->id);
+        
+        return view('compte', compact('solde', 'fond', 'membres', 'produit', 'trans'));
+    }
+
+    public function credit(Compte $compte)
     {
         return view('crédit');
     }

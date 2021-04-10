@@ -21,12 +21,12 @@ class CreateClientEntsTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('Numero_contribuable')->unique();
-            $table->datetime('NC_date')->nullable();
+            $table->timestamp('NC_date')->nullable();
             $table->string('Siege');
             $table->string('Activité');
             $table->string('SiteWeb')->nullable();
             $table->string('password');
-            $table->integer('is_deleted')->default(0);
+            $table->integer('is_deleted')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

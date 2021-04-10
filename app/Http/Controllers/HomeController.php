@@ -16,6 +16,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return redirect('/accueil');
+    }
+
+    public function accueil()
+    {
         $membres = User::All()->count();
         $fond = Compte::get()->sum("Solde");
         $solde = Compte::where('UserId', auth()->user()->id)->first();

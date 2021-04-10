@@ -207,7 +207,6 @@
                     $('#userId').val(response.userId);
                     $('#type').val(response.type);
                     $('#montant').val(response.montant);
-                    $('#date').val(response.date);
                 },
                 error: function(error){
                     console.log(error);

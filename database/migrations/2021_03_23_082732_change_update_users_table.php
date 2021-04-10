@@ -15,7 +15,7 @@ class ChangeUpdateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('CNI_number')->unique()->nullable();
-            $table->datetime('CNI_date')->nullable();
+            $table->timestamp('CNI_date')->nullable();
             $table->string('CNI_place')->nullable();
             $table->string('job')->nullable();
             $table->string('toContact_name')->nullable();

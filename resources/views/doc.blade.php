@@ -13,7 +13,7 @@
             Présentation et Règlement d'EASYCREDIT
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Accueil</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Accueil</a> > Documentation</li>
         </ol>
     </section>
 

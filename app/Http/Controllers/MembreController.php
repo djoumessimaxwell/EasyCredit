@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Client_ent;
 use App\Role;
 use App\Compte;
+use App\Guichet;
 use App\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
@@ -80,7 +83,9 @@ class MembreController extends Controller
 
         $compte = new Compte;
         $compte->UserId = $user->id;
-        $compte->Account_number = 00001;
+        $compteId = Compte::max('id')+1;
+        $compteId = str_pad($compteId, 7, '0', STR_PAD_LEFT);
+        $compte->Account_number = "00001".$compteId."001"."1";
         $compte->ProductId = 1;
         $compte->Solde = 0;
         $compte->save();
@@ -125,7 +130,9 @@ class MembreController extends Controller
 
         $compte = new Compte;
         $compte->Client_entId = $user->id;
-        $compte->Account_number = 00001;
+        $compteId = Compte::max('id')+1;
+        $compteId = str_pad($compteId, 7, '0', STR_PAD_LEFT);
+        $compte->Account_number = "00001".$compteId."001"."2";
         $compte->ProductId = 1;
         $compte->Solde = 0;
         $compte->save();
@@ -245,6 +252,36 @@ class MembreController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
 
+    public function showMarchands()
+    {
+        $users = User::All();
+        return view('admin/marchands', compact('users'));
+    }
+
+    public function viewClient(Request $request)
+    {
+        $id = $request->input('id');
+        $user = User::find($id);
+        $output = array(
+            'name' => $user->fullname,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'date' => $user->created_at->toFormattedDateString(),
+            'CNI' => $user->CNI_number,
+            'dateCNI' => $user->CNI_date->toFormattedDateString(),
+            'placeCNI' => $user->CNI_place,
+            'job' => $user->job,
+            'toContactName' => $user->toContact_name,
+            'toContactPhone' => $user->toContact_phone
+        );
+        echo json_encode($output);
+    }
+
+    public function marchandClients()
+    {
+        $users = User::All()->where('is_deleted', '1');
+        return view('marchand/clients', compact('users'));
     }
 }

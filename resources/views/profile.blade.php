@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Membres
+    Profile
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             Mon Profile
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Accueil</a> > Profile</li>
         </ol>
     </section>
 

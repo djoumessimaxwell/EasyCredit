@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Client_Ent extends Model
 {
@@ -38,6 +41,10 @@ class Client_Ent extends Model
 
     public function compte(){
         return $this->hasOne(Compte::class);
+    }
+
+    public function guichets(){
+        return $this->belongsToMany('App\Guichet', 'user_guichet', 'Client_entId', 'GuichetId');
     }
 
     public function hasAnyGuichet($guichets) {
