@@ -20,6 +20,7 @@ class ChangeUpdateUsersTable extends Migration
             $table->string('job')->nullable();
             $table->string('toContact_name')->nullable();
             $table->string('toContact_phone')->unique()->nullable();
+            $table->string('image_link', 2000)->nullable();
         });
     }
 
@@ -37,6 +38,7 @@ class ChangeUpdateUsersTable extends Migration
             $table->dropColumn('job');
             $table->dropColumn('toContact_name');
             $table->dropColumn('toContact_phone');
+            $table->dropColumn('image_link');
         });
     }
 }

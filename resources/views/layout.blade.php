@@ -65,7 +65,7 @@
         @yield('css')
     </head>
 
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-green sidebar-mini">
         <div class="wrapper">
 
         @include('header')
@@ -89,6 +89,7 @@
                 //console.log($(this).attr('href'));
                 if ((window.location.pathname.indexOf($(this).attr('href'))) > -1) {
                     $(this).parent().addClass('active');
+                    $(this).closest(".sidebar").addClass("active");
                 }
             });
         </script>

@@ -13,7 +13,7 @@ class CreateClientEntsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_ents', function (Blueprint $table) {
+        Schema::create('client__ents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Raison_sociale');
             $table->string('Forme_juridique');
@@ -27,6 +27,7 @@ class CreateClientEntsTable extends Migration
             $table->string('SiteWeb')->nullable();
             $table->string('password');
             $table->integer('is_deleted')->default(1);
+            $table->string('image_link', 2000)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -39,6 +40,6 @@ class CreateClientEntsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_ents');
+        Schema::dropIfExists('client__ents');
     }
 }

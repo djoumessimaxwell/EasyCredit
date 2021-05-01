@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'firstname','lastname', 'email','phone', 'password', 'is_deleted', 'CNI_number', 
-        'CNI_date', 'CNI_place', 'job', 'toContact_name', 'toContact_phone'
+        'CNI_date', 'CNI_place', 'job', 'toContact_name', 'toContact_phone', 'image_link'
     ];
 
     /**
@@ -36,6 +36,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'CNI_date' => 'datetime',
     ];
 
     public function transaction(){

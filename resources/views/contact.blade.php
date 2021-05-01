@@ -23,7 +23,7 @@
                 @if (count($errors))
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h5><i class="icon fa fa-check"></i> Message envoyé !</h5>
+                    <h5><i class="icon fa fa-check"></i> {{ $errors }}</h5>
                 </div>
                 @endif
             </div>
@@ -36,7 +36,7 @@
                         <h3 class="box-title">Commentaires & Suggestions</h3>
                     </div>
                     <div class="box-body">
-                        <form action="/send-message" method="post">
+                        <form action="/message/create" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Objet :</label>
@@ -69,7 +69,7 @@
                             <span class="info-box-icon"><i class="ion ion-ios-paperplane-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-number">info@gifoka.com</span>
+                                <span class="info-box-number">info@netnoh.com</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

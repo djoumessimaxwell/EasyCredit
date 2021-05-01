@@ -18,6 +18,7 @@ class CreateProduitsTable extends Migration
             $table->string('Name');
             $table->string('Number')->unique();
             $table->integer('Solde');
+            $table->string('Description')->nullable();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@
             Gestion des Utilisateurs
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a> > Particuliers</li>
         </ol>
     </section>
 
@@ -30,20 +30,17 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title col-xs-6">Liste des membres</h3>
-                        <div class="pull-right box-tools">
-                            <button type="button" class="btn btn-block btn-success col-xs-4" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus-circle"></i> Ajouter</button>
-                        </div>
+                        <h3 class="box-title col-xs-6">Liste des membres: Particuliers</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped" style="width: 100%">
+                        <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="bg-info">
                                     <th>Statut</th>
                                     <th>Nom</th>
                                     <th>Téléphone</th>
-                                    <th>Solde</th>
+                                    <th>Nombre de compte</th>
                                     <th>Date d'adhésion</th>
                                     <th>Role</th>
                                     <th>Actions</th>
@@ -55,18 +52,14 @@
                                 <tr>
                                     <td><center>
                                         @if( $user->is_deleted == 0)
-                                            <small class="label bg-green">Active</small>
+                                            <small class="label bg-green">Actif</small>
                                         @else
-                                            <small class="label bg-red">Exclu</small>
+                                            <small class="label bg-red">Inactif</small>
                                         @endif</center>
                                     </td>
                                     <td>{{$user->fullname}}</td>
                                     <td>{{$user->email}}</td>
-                                    @foreach($soldes as $solde)
-                                        @if($solde->UserId == $user->id)
-                                            <td> <strong> {{$solde->Solde}} </strong></td>
-                                        @endif
-                                    @endforeach
+                                    <td> <strong>{{ $comptes->where('UserId', $user->id)->count() }}</strong></td>
                                     <td> <strong> {{$user->created_at->toFormattedDateString()}} </strong><br/>
                                         {{$user->created_at->diffForHumans()}}
                                     </td>
@@ -78,13 +71,15 @@
                                             <small class="label bg-green">Personnel</small>
                                         @elseif( $user->hasRole('Membre'))
                                             <small class="label bg-yellow">Membre</small>
+                                        @elseif( $user->hasRole('Marchand'))
+                                            <small class="label bg-blue">Marchand</small>
                                         @endif</center>
                                     </td>
 
                                     <td>
                                         <center>
-                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->fullname}}" data-url="/admin/membre/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button type="button" title="modifier" class="update"><a href="/admin/membre/edit/{{$user->id}}"><i class="fa fa-edit" style="color:blue;"> </i></a></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->fullname}}" data-url="/admin/membrePart/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" title="modifier" class="update"><a href="/admin/membrePart/edit/{{$user->id}}"><i class="fa fa-edit" style="color:blue;"> </i></a></button>
                                         </center>
                                     </td>
 
@@ -218,7 +213,8 @@
         });
 
         $('#example1').DataTable({
-          'scrollX'     : true})
+          'scrollX'     : true,
+          'autoWidth'   : false})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,

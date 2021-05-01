@@ -29,10 +29,17 @@
 
         @if( Auth::user()->hasRole('Marchand') || Auth::user()->hasRole('Admin') )
         <li class="header">Menu Marchand</li>
-        <li class="sidebar">
-          <a href="/marchand/clients">
+        <li class="sidebar treeview">
+          <a href="#">
             <i class="fa fa-users"></i> <span>Mes Clients</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="/marchand/clientsPart"><i class="fa fa-circle-o"></i> Particuliers</a></li>
+            <li><a href="/marchand/clientsEnt"><i class="fa fa-circle-o"></i> Entreprise</a></li>
+          </ul>
         </li>
         <li class="sidebar">
           <a href="/marchand/operations">
@@ -43,10 +50,17 @@
 
         @if( Auth::user()->hasRole('Admin') )
         <li class="header">Menu Admin</li>
-        <li class="sidebar">
-          <a href="/admin/membres">
+        <li class="sidebar treeview">
+          <a href="#">
             <i class="fa fa-user"></i> <span>Membres</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/membresPart"><i class="fa fa-circle-o"></i> Particuliers</a></li>
+            <li><a href="/admin/membresEnt"><i class="fa fa-circle-o"></i> Entreprise</a></li>
+          </ul>
         </li>
         <li class="sidebar">
           <a href="/admin/transactions">

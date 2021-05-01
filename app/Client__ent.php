@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Client_Ent extends Model
+class Client__ent extends Model
 {
     use Notifiable;
 
@@ -37,6 +37,7 @@ class Client_Ent extends Model
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'NC_date' => 'datetime',
     ];
 
     public function compte(){

@@ -3,21 +3,25 @@
 Création compte
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{ URL::asset('css/multi-step-modal.css') }}">
+@endsection
+
 @section('content')
 <div class="login-box">
     <div class="login-box-body">
-        <div class="login-logo"><img  src="{{ URL::asset('img/logo2.png') }}" alt="logo Netnoh"></div>
+        <div class="login-logo"><img class="logo-width" src="{{ URL::asset('img/logo2.png') }}" alt="logo Netnoh"></div>
 
         <center><h4>Vous êtes un(une) :</h4></center>
 
         <div class="row">
-            <center><button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#modal-success">
+            <center><button type="button" id='modal-part' class="btn-lg btn-success" data-toggle="modal" data-target="#modal-danger4">
                 Particulier
             </button></center>
         </div>
         <ln></ln>
         <div class="row">
-            <center><button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#modal-danger">
+            <center><button type="button" id='modal-ent' class="btn-lg btn-danger" data-toggle="modal" data-target="#modal-danger8">
                 Entreprise
             </button></center>
         </div>
@@ -29,79 +33,9 @@ Création compte
 
     </div>
 
-    <!-- <div class="card">
-        <div class="card-header">{{ __('Register') }}</div>
-
-        <div class="card-body">
-            <button type="button" class="btn btn-block btn-success col-xs-4" data-toggle="modal" data-target="#modal-success">
-                <i class="fa fa-plus-circle"></i> Ajouter
-            </button>
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-
-                <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                    </div>
-                </div>
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Register') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> -->
-
     <!-- /.box -->
-    <div class="modal modal-default fade" id="modal-success">
+    <form method="POST" action="/membrePart/create" class="modal multi-step" id="modal-danger4" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-info">
@@ -109,109 +43,162 @@ Création compte
                     <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Création compte <b>Particulier</b></h4>
                 </div>
-                <div class="modal-body">
-                    <form method="POST" action="/membre/create">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label>Nom<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="firstname" class="form-control" placeholder="Entrer le nom" required>
+                <div class="m-progress-bar">
+                    <div class="p-step">
+                        <div class="bullet">
+                            <b>1</b>
                         </div>
-                        <div class="form-group">
-                            <label>Prénom :</label>
-
-                            <input type="text" name="lastname" class="form-control" placeholder="Entrer le prenom">
-                        </div>
-                        <div class="form-group">
-                            <label>Téléphone<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="tel" name="email" class="form-control" placeholder="Numéro de téléphone" required>
-                        </div>
-                        <div class="form-group">
-                            <label>E-mail :</label>
-
-                            <input type="email" name="phone" class="form-control" placeholder="Entrer l'E-mail">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Mot de passe<i style="color:#FF0000">*</i> :</label>
-                            <input type="password" placeholder="Nouveau mot de passe" id="new_password" class="form-control @error('new_password') is-invalid @enderror" name="password" required>
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
-                            @error('new_password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong style="color: red">{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Confirmer votre Mot de passe<i style="color:#FF0000">*</i> :</label>
-                            <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" required>
-
-                            @error('confirm_password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong style="color: red">{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Numéro CNI(ou Passeport)<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="number" name="CNI_number" class="form-control" placeholder="Entrer le numéro CNI" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Date de délivrance<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="date" name="CNI_date" class="form-control" placeholder="Entrer la date" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Lieu de délivrance<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="CNI_place" class="form-control" placeholder="Entrer le lieu" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Votre activité<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="job" class="form-control" placeholder="Entrer votre activité" required>
-                        </div>
-                        <hr>
-                        <center><label>Personne à contacter</label></center>
-                        <div class="form-group">
-                            <label>Nom complet :</label>
-
-                            <input type="text" name="toContact_name" class="form-control" placeholder="Entrer le nom">
-                        </div>
-                        <div class="form-group">
-                            <label>Téléphone :</label>
-
-                            <input type="tel" name="toContact_phone" class="form-control" placeholder="Entrer le numéro">
-                        </div>
-                        
-                        <div class="form-group">
-                            <i style="color:#FF0000">*</i> Champs obligatoires
-                        </div>
-
-                        <div class="checkbox">
-                            <label><input type="checkbox" required>
-                            En cochant cette case, j'accepte les <a>Termes et Conditions de Netnoh Finance</a>.</label>
+                        <div class="check fa fa-check">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                    <div class="p-step">
+                        <div class="bullet">
+                            <b>2</b>
+                        </div>
+                        <div class="check fa fa-check">
+                        </div>
                     </div>
-                </form>
+                    <div class="p-step">
+                        <div class="bullet">
+                            <b>3</b>
+                        </div>
+                        <div class="check fa fa-check">
+                        </div>
+                    </div>
+                    <div class="p-step">
+                        <div class="bullet">
+                            <b>4</b>
+                        </div>
+                        <div class="check fa fa-check">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step-1 m1">
+                    <center><h4>Informations Personnelles</h4></center>
+                    <div class="form-group">
+                        <label>Nom<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="firstname" class="form-control" placeholder="Entrer le nom">
+                        <div class='alert-danger firstname_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Prénom :</label>
+
+                        <input type="text" name="lastname" class="form-control" placeholder="Entrer le prenom">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="tel" name="email" class="form-control" placeholder="6xxxxxxxx">
+                        <div class='alert-danger email_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail :</label>
+
+                        <input type="email" name="phone" id="mail" class="form-control" placeholder="Entrer l'E-mail">
+                        <div class='alert-danger phone_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Votre activité<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="job" class="form-control" placeholder="Entrer votre activité">
+                        <div class='alert-danger job_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                </div>
+
+                <div class="modal-body step-2 m2">
+                    <center><h4>Pièce d'identité</h4></center>
+                    <div class="form-group">
+                        <label>Numéro CNI(ou Passeport)<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="number" name="CNI_number" class="form-control" placeholder="Entrer le numéro CNI">
+                        <div class='alert-danger CNI_number_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date de délivrance<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="date" name="CNI_date" class="form-control" placeholder="Entrer la date">
+                        <div class='alert-danger CNI_date_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lieu de délivrance<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="CNI_place" class="form-control" placeholder="Entrer le lieu">
+                        <div class='alert-danger CNI_place_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Votre photo :</label>
+
+                        <input type='file' accept="image/*" name="photo" class="form-control" placeholder="image portrait">
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                </div>
+
+                <div class="modal-body step-3 m3">
+                    <center><h4>Personne à contacter</h4></center>
+                    <div class="form-group">
+                        <label>Nom complet :</label>
+
+                        <input type="text" name="toContact_name" class="form-control" placeholder="Entrer le nom">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone :</label>
+
+                        <input type="tel" name="toContact_phone" class="form-control" placeholder="Entrer le numéro">
+                        <div class='alert-danger toContact_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                </div> 
+
+                <div class="modal-body step-4 m4">
+                    <center><h4>Sécurité</h4></center>
+                    <div class="form-group">
+                        <label>Mot de passe<i style="color:#FF0000">*</i> :</label>
+                        <input type="password" placeholder="Mot de passe" id="password" class="form-control" name="password">
+                        <div class='alert-danger password_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmer votre Mot de passe<i style="color:#FF0000">*</i> :</label>
+                        <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control" name="confirm_password">
+                        <div class='alert-danger confirm_password_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                    <div class="checkbox">
+                        <label><input name='checkbox' type="checkbox" value="1">
+                        En cochant cette case, j'accepte les <a>Termes et Conditions de Netnoh Finance</a>.</label>
+                        <div class='alert-danger checkbox_error'></div>
+                    </div> 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary step1 pull-left">Retour</button>
+                    <button type="button" class="btn btn-primary step2" data-step="1" data-id="1">Suivant</button>
+                    <button type="button" class="btn btn-primary step3 pull-left">Retour</button>
+                    <button type="button" class="btn btn-primary step4" data-step="1" data-id="2">Suivant</button>
+                    <button type="button" class="btn btn-primary step5 pull-left">Retour</button>
+                    <button type="button" class="btn btn-primary step6" data-step="1" data-id="3">Suivant</button>
+                    <button type="submit" class="btn btn-primary step7" data-step="1" data-id="4">Valider</button>
+                </div>
+                
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </form>
     <!-- /.modal -->
 
     <!-- /.box -->
-    <div class="modal modal-default fade" id="modal-danger">
+    <form method="POST" action="/membreEnt/create" class="modal multi-step" id="modal-danger8" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-info">
@@ -219,99 +206,200 @@ Création compte
                     <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Création compte <b>Enteprise</b></h4>
                 </div>
-                <div class="modal-body">
-                    <form method="POST" action="/membre/create_ent">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label>Raison sociale<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="raison_sociale" class="form-control" placeholder="Entrer votre raison sociale" required>
+                <div class="m-progress-bar">
+                    <div class="p-step">
+                        <div class="bullet1">
+                            <b>1</b>
                         </div>
-                        <div class="form-group">
-                            <label>Forme juridique<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="forme_juridique" class="form-control" placeholder="Entrer votre forme juridique" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Téléphone<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="tel" name="email" class="form-control" placeholder="Numéro de téléphone" required>
-                        </div>
-                        <div class="form-group">
-                            <label>E-mail<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="email" name="phone" class="form-control" placeholder="Entrer l'E-mail" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Mot de passe<i style="color:#FF0000">*</i> :</label>
-                            <input type="password" placeholder="Nouveau mot de passe" id="new_password" class="form-control @error('new_password') is-invalid @enderror" name="password" required>
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-
-                            @error('new_password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong style="color: red">{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Confirmer votre Mot de passe<i style="color:#FF0000">*</i> :</label>
-                            <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" required>
-
-                            @error('confirm_password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong style="color: red">{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Numéro contribuable<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="number" name="num_contribuable" class="form-control" placeholder="Entrer votre numéro de contribuable" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Date de délivrance<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="date" name="NC_date" class="form-control" placeholder="Entrer la date" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Siège de l'entreprise<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="siège" class="form-control" placeholder="Entrer le lieu" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Votre secteur d'activité<i style="color:#FF0000">*</i> :</label>
-
-                            <input type="text" name="activité" class="form-control" placeholder="Entrer votre activité" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Site internet :</label>
-
-                            <input type="text" name="siteWeb" class="form-control" placeholder="Entrer votre siteweb">
-                        </div>
-
-                        <div class="form-group">
-                            <i style="color:#FF0000">*</i> Champs obligatoires
-                        </div>
-                        
-                        <div class="checkbox">
-                            <label><input type="checkbox" required>
-                            En cochant cette case, j'accepte les <a>Termes et Conditions de Netnoh Finance</a>.</label>
+                        <div class="check1 fa fa-check">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                    <div class="p-step">
+                        <div class="bullet1">
+                            <b>2</b>
+                        </div>
+                        <div class="check1 fa fa-check">
+                        </div>
                     </div>
-                </form>
+                    <div class="p-step">
+                        <div class="bullet1">
+                            <b>3</b>
+                        </div>
+                        <div class="check1 fa fa-check">
+                        </div>
+                    </div>
+                    <div class="p-step">
+                        <div class="bullet1">
+                            <b>4</b>
+                        </div>
+                        <div class="check1 fa fa-check">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step-1 m5">
+                    <center><h4>Détails de l'entreprise</h4></center>
+                    <div class="form-group">
+                        <label>Raison sociale<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="raison_sociale" class="form-control" placeholder="Entrer votre raison sociale">
+                        <div class='alert-danger raison_sociale_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Forme juridique<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="forme_juridique" class="form-control" placeholder="Entrer votre forme juridique">
+                        <div class='alert-danger forme_juridique_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="tel" name="email1" class="form-control" placeholder="6xxxxxxxx">
+                        <div class='alert-danger email1_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail :</label>
+
+                        <input type="email" name="phone1" class="form-control" placeholder="Entrer l'E-mail">
+                        <div class='alert-danger phone1_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Site internet :</label>
+
+                        <input type="text" name="siteWeb" class="form-control" placeholder="Entrer votre siteweb">
+                        <div class='alert-danger siteWeb_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                </div>
+
+                <div class="modal-body step-2 m6">
+                    <center><h4>Identification de l'entreprise</h4></center>
+                    <div class="form-group">
+                        <label>Numéro contribuable<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="num_contribuable" class="form-control" placeholder="Entrer votre numéro de contribuable">
+                        <div class='alert-danger num_contribuable_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date de délivrance<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="date" name="NC_date" class="form-control" placeholder="Entrer la date">
+                        <div class='alert-danger NC_date_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Siège de l'entreprise<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="siège" class="form-control" placeholder="Entrer le lieu">
+                        <div class='alert-danger siège_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Secteur d'activité<i style="color:#FF0000">*</i> :</label>
+
+                        <input type="text" name="activité" class="form-control" placeholder="Entrer votre activité">
+                        <div class='alert-danger activité_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                </div>
+
+                <div class="form-horizontal modal-body step-3 m7">
+                    <center><h4>Responsable de l'Entreprise</h4></center>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Nom complet<i style="color:#FF0000">*</i> :</label>
+
+                        <div class='col-sm-8'><input type="text" name="name" class="form-control" placeholder="Votre nom">
+                        <div class='alert-danger name_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Téléphone<i style="color:#FF0000">*</i> :</label>
+
+                        <div class='col-sm-8'><input type="tel" name="email2" class="form-control" placeholder="6xxxxxxxx">
+                        <div class='alert-danger email2_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>E-mail :</label>
+
+                        <div class='col-sm-8'><input type="email" name="phone2" class="form-control" placeholder="Votre email">
+                        <div class='alert-danger phone2_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Numéro CNI<i style="color:#FF0000">*</i> :</label>
+
+                        <div class='col-sm-8'><input type="number" name="CNI_number" class="form-control" placeholder="Numéro CNI">
+                        <div class='alert-danger CNI_number_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Date de délivrance<i style="color:#FF0000">*</i> :</label>
+
+                        <div class='col-sm-8'><input type="date" name="CNI_date" class="form-control pull-right" placeholder="Date">
+                        <div class='alert-danger CNI_date_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Lieu de délivrance<i style="color:#FF0000">*</i> :</label>
+
+                        <div class='col-sm-8'><input type="text" name="CNI_place" class="form-control" placeholder="Lieu">
+                        <div class='alert-danger CNI_place_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Votre photo :</label>
+
+                        <div class='col-sm-8'><input type='file' accept="image/*" name="photo" class="form-control" placeholder="image portrait"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-sm-4 control-label'>Fonction<i style="color:#FF0000">*</i> :</label>
+
+                        <div class='col-sm-8'><input type="text"  name="job" class="form-control" placeholder="Fonction">
+                        <div class='alert-danger job_error'></div></div>
+                    </div>
+                    <div class="form-group">
+                        <i style="color:#FF0000; margin-left:20px">*</i> Champs obligatoires
+                    </div>
+                </div> 
+
+                <div class="modal-body step-4 m8">
+                    <center><h4>Sécurité</h4></center>
+                    <div class="form-group">
+                        <label>Mot de passe<i style="color:#FF0000">*</i> :</label>
+                        <input type="password" placeholder="Mot de passe" id="password" class="form-control" name="password">
+                        <div class='alert-danger password_error'></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmer votre Mot de passe<i style="color:#FF0000">*</i> :</label>
+                        <input id="confirm_password" placeholder="Confirmer mot de passe" type="password" class="form-control" name="confirm_password">
+                        <div class='alert-danger confirm_password_error'></div>
+                    </div> 
+                    <div class="form-group">
+                        <i style="color:#FF0000">*</i> Champs obligatoires
+                    </div>
+                    <div class="checkbox">
+                        <label><input name="checkbox" type="checkbox" value="1">
+                        En cochant cette case, j'accepte les <a>Termes et Conditions de Netnoh Finance</a>.</label>
+                        <div class='alert-danger checkbox_error'></div>
+                    </div>
+                </div>
+                    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary step1 pull-left">Retour</button>
+                    <button type="button" class="btn btn-primary step2" data-id="5">Suivant</button>
+                    <button type="button" class="btn btn-primary step3 pull-left">Retour</button>
+                    <button type="button" class="btn btn-primary step4" data-id="6">Suivant</button>
+                    <button type="button" class="btn btn-primary step5 pull-left">Retour</button>
+                    <button type="button" class="btn btn-primary step6" data-id="7">Suivant</button>
+                    <button type="submit" class="btn btn-primary step7" data-id="8">Valider</button>
+                </div>
+                
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </form>
     <!-- /.modal -->
 
 </div>
+@endsection
+
+@section('script')
+<script src="{{ URL::asset('js/multi-step-modal.js') }}"></script>
 @endsection

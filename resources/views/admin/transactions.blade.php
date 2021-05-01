@@ -14,7 +14,7 @@
             <small>Débit & Crédit</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a> > Transactions</li>
         </ol>
     </section>
 
@@ -39,7 +39,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped" style="width: 100%">
+                        <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="bg-info">
                                     <th>N°</th>
@@ -57,7 +57,7 @@
 
                                     <td>{{$transaction->id}}</td>
                                     @foreach($users as $user)
-                                        @if($transaction->UserId == $user->id)
+                                        @if($transaction->senderId == $user->id)
                                             <td>{{$user->fullname}}</td>
                                         @endif
                                     @endforeach
@@ -141,7 +141,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control pull-right" name="date" id="datepicker">
+                                        <input type="date" class="form-control pull-right" name="date" id="datepicker">
                                     </div>
                                 </div>
                             </div>
@@ -186,15 +186,6 @@
 
 @section('script')
     <script>
-        $(function () {
-            //Date picker
-            $('#datepicker').datepicker({
-                autoclose: true
-            })
-        })
-    </script>
-
-    <script>
       $(function () {
         $(".update").click(function(){
             var id = $(this).data('id');
@@ -229,7 +220,8 @@
         });
 
         $('#example1').DataTable({
-          'scrollX'     : true})
+          'scrollX'     : true,
+          'autoWidth'   : false})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,

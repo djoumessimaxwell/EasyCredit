@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/blue.css') }}">
     <!-- Popup alert -->
     <link rel="stylesheet" href="{{ URL::asset('css/toast.css') }}">
+    @yield('css')
 </head>
   <body class="hold-transition login-page">
 
@@ -63,5 +64,6 @@
       </script>
       <!-- iCheck -->
       <script src="{{ URL::asset('js/icheck.min.js') }}"></script>
+      @yield('script')
   </body>
 </html>

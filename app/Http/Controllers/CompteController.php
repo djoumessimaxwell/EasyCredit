@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Compte;
 use App\User;
+use App\Client__ent;
 use App\Transaction;
 use App\Produit;
 use Illuminate\Http\Request;
@@ -50,10 +51,11 @@ class CompteController extends Controller
     public function show(Compte $compte)
     {
         $membres = User::All()->count();
+        $membres = Client__ent::All()->count();
         $fond = Compte::get()->sum("Solde");
         $solde = Compte::where('UserId', auth()->user()->id)->first();
         $produit = Produit::where('id', $solde->ProductId)->first();
-        $trans = Transaction::All()->where('UserId', auth()->user()->id);
+        $trans = Transaction::All()->where('senderId', auth()->user()->id);
         
         return view('compte', compact('solde', 'fond', 'membres', 'produit', 'trans'));
     }

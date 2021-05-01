@@ -1,11 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Marchands
-@endsection
-
-@section('css')
-<link rel="stylesheet" href="{{ URL::asset('css/multi-step-modal.css') }}">
+    Membres
 @endsection
 
 @section('content')
@@ -14,10 +10,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Gestion des Marchands 
+            Gestion des Utilisateurs
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/accueil"><i class="fa fa-home"></i> Accueil</a> > Marchands</li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a> > Entreprises</li>
         </ol>
     </section>
 
@@ -34,10 +30,7 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title col-xs-6">Liste des marchands</h3>
-                        <div class="pull-right box-tools">
-                            <button type="button" class="btn btn-block btn-success col-xs-4" data-toggle="modal" data-target="#modal-success"><i class="fa fa-plus-circle"></i> Ajouter</button>
-                        </div>
+                        <h3 class="box-title col-xs-6">Liste des membres: Entreprise</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -45,43 +38,46 @@
                             <thead>
                                 <tr class="bg-info">
                                     <th>Statut</th>
-                                    <th>Nom</th>
+                                    <th>Raison Sociale</th>
                                     <th>Téléphone</th>
-                                    <th>Solde</th>
+                                    <th>Nombre de compte</th>
                                     <th>Date d'adhésion</th>
-                                    <th>Guichet</th>
+                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($marchands as $marchand)
+                                @foreach($users as $user)
                                 <tr>
                                     <td><center>
-                                        @if( $marchand->is_deleted == 0)
+                                        @if( $user->is_deleted == 0)
                                             <small class="label bg-green">Actif</small>
                                         @else
                                             <small class="label bg-red">Inactif</small>
                                         @endif</center>
                                     </td>
-                                    <td>{{$marchand->fullname}}</td>
-                                    <td>{{$marchand->email}}</td>
-                                    @foreach($soldes as $solde)
-                                        @if($solde->UserId == $marchand->id)
-                                            <td> <strong> {{$solde->Solde}} </strong></td>
-                                        @endif
-                                    @endforeach
-                                    <td> <strong> {{$marchand->created_at->toFormattedDateString()}} </strong><br/>
-                                        {{$marchand->created_at->diffForHumans()}}
+                                    <td>{{$user->Raison_sociale}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td> <strong>{{ $comptes->where('UserId', $user->id)->count() }}</strong></td>
+                                    <td> <strong> {{$user->created_at->toFormattedDateString()}} </strong><br/>
+                                        {{$user->created_at->diffForHumans()}}
                                     </td>
 
-                                    <td>
+                                    <td><center>
+                                        @if( $user->hasRole('Admin'))
+                                            <small class="label bg-red">Admin</small>
+                                        @elseif( $user->hasRole('Personnel'))
+                                            <small class="label bg-green">Personnel</small>
+                                        @elseif( $user->hasRole('Membre'))
+                                            <small class="label bg-yellow">Membre</small>
+                                        @endif</center>
                                     </td>
 
                                     <td>
                                         <center>
-                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$marchand->id}}" data-name="{{$marchand->fullname}}" data-url="/admin/marchand/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
-                                            <button type="button" title="modifier" class="update"><a href="/admin/marchand/edit/{{$marchand->id}}"><i class="fa fa-edit" style="color:blue;"> </i></a></button>
+                                            <button type="button" data-toggle="modal" data-target="#modal-danger" data-id="{{$user->id}}" data-name="{{$user->Raison_sociale}}" data-url="/admin/membreEnt/delete/" title="supprimer" class="delete"><span><i class="fa fa-trash" style="color:red;"></i></span></button>
+                                            <button type="button" title="modifier" class="update"><a href="/admin/membreEnt/edit/{{$user->id}}"><i class="fa fa-edit" style="color:blue;"> </i></a></button>
                                         </center>
                                     </td>
 
@@ -98,41 +94,67 @@
                 </div>
                 <!-- /.box -->
                 <div class="modal modal-default fade" id="modal-success">
-                    <div class="operation-box">
-                        <div class="box box-widget widget-user">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="box-header bg-aqua-active">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                                <h4>Nouveau Marchand</h4>
+                                <h4 class="modal-title">Formulaire d'ajout d'un Membre</h4>
                             </div>
-                            <div class="box-footer">
-                                <form method="POST" action="/admin/marchand/create">
+                            <div class="modal-body">
+                                <form method="POST" action="/admin/membre/create">
                                     {{ csrf_field() }}
-                                    <div id="div1" class="form-group">
-                                        <label>Numéro du Marchand:</label>
+                                    <div class="form-group">
+                                        <label>Nom :</label>
 
-                                        <input type="tel" name="number" class="form-control" placeholder="6xxxxxxxx">
-                                        <div class='alert-danger number_error'></div>
+                                        <input type="text" name="firstname" class="form-control" placeholder="Entrer le nom">
                                     </div>
-                                    <div class="form-group" style="display: none;">
-                                        <input type="number" name="id" id="id" class="form-control">
+                                    <div class="form-group">
+                                        <label>Prénom :</label>
+
+                                        <input type="text" name="lastname" class="form-control" placeholder="Entrer le prenom">
                                     </div>
-                                    <div id="div2" class="form-group">
-                                        <center><img class="img-circle" src="{{ URL::asset('img/user2-160x160.jpg') }}" width="90px" alt="profile marchand">
-                                        <h4 id="h4"></h4>
-                                        <span id="span"></span></center>
+                                    <div class="form-group">
+                                        <label>Téléphone :</label>
+
+                                        <input type="tel" name="email" class="form-control" placeholder="Numéro de téléphone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail :</label>
+
+                                        <input type="email" name="phone" class="form-control" placeholder="Entrer l'E-mail">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Role :</label>
+
+                                        <select class="form-control select2" name="role" style="width: 100%;">
+                                            <option value="3">Membre</option>
+                                            <option value="2">Personnel</option>
+                                            <option value="1">Admin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date d'adhésion' :</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" name="date" class="form-control pull-right" id="datepicker">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                    <button type="button" id="b1" class="btn btn-primary">Rechercher</button>
-                                    <button type="submit" id="b2" class="btn btn-primary">Valider</button>
+                                    <button type="submit" class="btn btn-primary">Valider</button>
                                 </div>
                             </form>
                         </div>
+                        <!-- /.modal-content -->
                     </div>
+                    <!-- /.modal-dialog -->
                 </div>
+                <!-- /.modal -->
 
                 <div class="modal modal-default fade" id="modal-danger">
                     <div class="modal-dialog">
@@ -149,7 +171,7 @@
                                     {{ csrf_field() }}
                                     @method('DELETE')
                                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
-                                    <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
+                                <button type="submit" class="btn btn-primary" id="answer-delete">Oui</button>
                                 </form>
                             </div>
                         </div>
@@ -157,62 +179,31 @@
                 </div>
             </div>
         </div>
-    </section>    
+    </section>
 </div>
 <!-- /.content-wrapper -->
 @endsection
 
 @section('script')
     <script>
+        $(function () {
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+        })
+    </script>
+
+    <script>
       $(function () {
-        $("#div2").hide();
-        $("#b2").hide();
-        var input = document.getElementsByName("number")[0];
-
-        function phonenumberValidation(inputtxt) {
-            var phone = /^\(?([0-9]{9})$/;
-            var tel = input.value;
-            if(inputtxt.value.match(phone)) {
-                $.ajax({
-                    method: "get",
-                    url: "/admin/marchand/search",
-                    data: {tel:tel},
-                    dataType: 'json',
-                    success: function(response){
-                        $("#div1").hide();
-                        $("#b1").hide();
-                        $('#h4').html(response.name);
-                        $('#span').html(response.email);
-                        $('#id').val(response.id);
-                        $("#div2").show();
-                        $("#b2").show();
-                    },
-                    error: function(error){
-                        $('.number_error').text("Ce client n'existe pas!");
-                    }
-                });
-            }
-            else {
-                $('.number_error').text("Numéro invalide!");
-            }
-        }
-
-        $('.btn').click(function(){
-            $('.number_error').text("");
-        });
-
-        $("#b1").click(function(){
-            phonenumberValidation(input);
-        });
-
         $(".delete").click(function(){
             var id = $(this).data('id');
             var Name = $(this).data('name');
-            var Numero = $(this).data('name');
             var url = $(this).data('url');
             $('h4 p').html(Name);
             $('#delete-form').attr('action', url + id);
         });
+
         $(".view").click(function(){
             var id = $(this).data('id');
             var name = $(this).data('name');

@@ -13,7 +13,7 @@
             Messagerie
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a> > Messages</li>
         </ol>
     </section>
 
@@ -23,7 +23,7 @@
                 @if (count($errors))
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h5><i class="icon fa fa-check"></i> Message supprimé !</h5>
+                    <h5><i class="icon fa fa-check"></i> {{ $errors }}</h5>
                 </div>
                 @endif
             </div>
@@ -34,7 +34,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped" style="width: 100%">
+                        <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="bg-info">
                                     <th>N°</th>
@@ -140,7 +140,8 @@
         });
         
         $('#example1').DataTable({
-          'scrollX'     : true})
+          'scrollX'     : true,
+          'autoWidth'   : false})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,

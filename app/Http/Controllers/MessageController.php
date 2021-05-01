@@ -37,7 +37,7 @@ class MessageController extends Controller
     {
         $message = new Message;
 
-        $message->name = auth()->user()->name;
+        $message->name = auth()->user()->fullname;
         $message->email = auth()->user()->email;
         $message->phone = auth()->user()->phone;
         $message->subject = request('subject');
@@ -101,10 +101,10 @@ class MessageController extends Controller
         $message->delete();
 
         $notification = array(
-            'message' => 'Suppression réussie !',
+            'message' => 'Message supprimé !',
             'alert-type' => 'success'
         );
 
-        return redirect()->back()->withErrors($notification);
+        return redirect()->back()->with($notification);
     }
 }

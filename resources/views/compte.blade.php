@@ -11,7 +11,6 @@
         <section class="content-header">
             <h1>
                 Details de mes Comptes 
-                <!-- <small>{{ $produit->Name }}</small> -->
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/"><i class="fa fa-home"></i> Accueil</a> > Comptes</li>
@@ -96,7 +95,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped" style="width: 100%">
+                  <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr class="bg-info">
                         <th>#</th>
@@ -205,7 +204,8 @@
         });
 
         $('#example1').DataTable({
-          'scrollX'     : true})
+          'scrollX'     : true,
+          'autoWidth'   : false})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,

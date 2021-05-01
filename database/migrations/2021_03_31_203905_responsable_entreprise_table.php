@@ -15,6 +15,7 @@ class ResponsableEntrepriseTable extends Migration
     {
         Schema::create('responsable_ents', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('client_entId');
             $table->string('firstname');
             $table->string('lastname')->nullable();
             $table->string('phone')->unique()->nullable();

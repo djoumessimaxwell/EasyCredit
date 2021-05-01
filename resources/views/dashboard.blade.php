@@ -207,18 +207,6 @@
             $('input[type=radio]').removeAttr('disabled');
             $('select').removeAttr('disabled');
         });
-
-        $('#example1').DataTable({
-          'scrollX'     : true})
-        $('#example2').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : false,
-          'ordering'    : false,
-          'info'        : true,
-          'scrollX'     : true,
-          'autoWidth'   : false
-        })
       })
     </script>
 @endsection

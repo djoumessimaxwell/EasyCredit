@@ -13,7 +13,7 @@
             Modification du compte de : {{ $user->fullname }}
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a></li>
+            <li><a href="/"><i class="fa fa-home"></i> Tableau de bord</a> > Profile membre</li>
         </ol>
     </section>
 
@@ -51,6 +51,7 @@
                                         @if( $user->hasRole('Admin') )Administrateur
                                         @elseif( $user->hasRole('Membre') )Membre
                                         @elseif( $user->hasRole('Personnel'))Personnel
+                                        @elseif( $user->hasRole('Marchand'))Marchand
                                         @endif
                                     </b></a>
                                 </li>
@@ -66,7 +67,7 @@
                             <div class="box-header with-border">
                                 <a href="#first" data-toggle="tab" class="btn fc-button fc-state-default fc-corner-left"><b> < </b></a>
                             </div>
-                            <form class="form-horizontal" method="POST" action="/admin/membre/update/{{ $user->id }}">
+                            <form class="form-horizontal" method="POST" action="/admin/membrePart/update/{{ $user->id }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nom</label>
@@ -227,7 +228,8 @@
         });
 
         $('#example1').DataTable({
-          'scrollX'     : true})
+          'scrollX'     : true,
+          'autoWidth'   : false})
         $('#example2').DataTable({
           'paging'      : true,
           'lengthChange': false,
